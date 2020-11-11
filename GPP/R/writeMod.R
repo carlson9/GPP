@@ -1,12 +1,12 @@
 #' Writes Stan code for GPP model
 #'
-#' Returns string of stan code that can be run to estimate the GPP. 
+#' Returns string of Stan code that can be run to estimate the GPP. 
 #'
 #' @param noise The desired amount of artificial noise to add to the mode.
 #' @param ncov The number of covariates to include in the model. 
 #'
 #' @return A string of Stan code that can be run with \code{\link{runMod.R}} 
-#' @author Devin P. Brown and David G. Carlson 
+#' @author Devin P. Brown \email{devinpbrown96@@gmail.com} and David Carlson \email{carlson.david@@wustl.edu} 
 #' @examples
 #' 
 #' writeMod(noise = 0.25, ncov = 2)
@@ -40,8 +40,6 @@ setMethod(f="writeMod",
    int<lower=0> Country[x1_N_obs + x1_N_miss];
    int<lower=0> Year[x1_N_obs + x1_N_miss];
    vector[y_N_obs] y_in;
-   int<lower=0> K; //number of predictors that do not require imputation
-   matrix[x1_N_obs + x1_N_miss, K] X; //matrix of predictors that do not require imputation 
    }
    transformed data {
    int N;
@@ -192,13 +190,13 @@ setMethod(f="writeMod",
             for (i in 1:ncov){
               modstring = paste0(modstring, 'xz',i,'[n]*b',i,'1 +')
             }
-            modstring = paste0(modstring, 'X[n,]*B + y_year_re[Year[n]] + y_country_re[Country[n]] +
+            modstring = paste0(modstring, 'y_year_re[Year[n]] + y_country_re[Country[n]] +
                        y_GP_term[Year[n], Country[n]], sig_sq);
 } \n')
             modstring = paste0(modstring, 'generated quantities {
   vector[y_N_miss] ystar;
   for(nm in 1:y_N_miss) ystar[nm] = normal_rng(y_miss[nm], ', noise,');
   }')
-}
+})
 
  

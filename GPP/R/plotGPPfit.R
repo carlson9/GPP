@@ -18,14 +18,15 @@
 #' 
 #' @return A plot built in r-base
 #' 
-#' @author Devin P. Brown \email{devinpbrown96@gmail.com} and David G. Carlson \email{carlson.david@@wustl.edu} 
+#' @author Devin P. Brown \email{devinpbrown96@@gmail.com} and David Carlson \email{carlson.david@@wustl.edu} 
 #' @examples
 #' 
+#' \dontrun{
 #' fit = 
 #' df = 
 #' 
 #' plotGPPfit(fit=fit, df=d, obvColName='country', obvName='West Germany',expv='gdp', starttime=1990, timeColName='year', legendLoc='bottomright', xlabel="Test X-Label", ylabel = "Test Y-Label", actualdatacol = 'blue', preddatacol = 'green')
-#' 
+#' }
 #' 
 #' @seealso \code{\link{autoConverge}} \code{\link{GPP}} \code{\link{runMod}} \code{\link{writeMod}}
 #' @rdname plotGPPfit
