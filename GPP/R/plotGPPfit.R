@@ -1,4 +1,3 @@
-#plots the results of a (converged) model, with true and projected
 #' Plots results of a (converged) model, with true and projected values.
 #'
 #' Takes the results of a Gaussian Process Projection fit and generates a linear plot of the actual and predicted counterfactual values
@@ -7,7 +6,7 @@
 #' @param df The dataframe used in your model. 
 #' @param obvColName The column name that includes your observation of interest. Must be a string.
 #' @param obvName  The name of the specific observation of interest. Must be a string. 
-#' @param expc The explanatory variable that is subjected to the counterfactual claim.
+#' @param expv The explanatory variable that is subjected to the counterfactual claim.
 #' @param starttime The start time of the treatment effect.
 #' @param timeColName The name of the column that includes your time variable. 
 #' @param legendLoc The preferred location of the legend in the final graph. Defaults to "topleft". 
