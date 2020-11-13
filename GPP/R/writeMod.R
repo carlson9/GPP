@@ -2,7 +2,7 @@
 #'
 #' Returns string of Stan code that can be run to estimate the GPP. 
 #'
-#' @param noise The desired amount of artificial noise to add to the mode.
+#' @param noise The desired amount of artificial noise to add to the model.
 #' @param ncov The number of covariates to include in the model. 
 #'
 #' @return A string of Stan code that can be run with \code{\link{runMod.R}} 
