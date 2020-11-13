@@ -22,7 +22,7 @@ setGeneric(name="writeMod",
 
 #' @export
 setMethod(f="writeMod",
-          definition=function(noise, ncov, printMod= FALSE){
+          definition=function(noise, ncov, printMod = FALSE){
             modstring = 'data { \n'
             
             for (i in 1:ncov){

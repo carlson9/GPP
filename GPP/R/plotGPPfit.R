@@ -34,7 +34,7 @@
 #' @rdname plotGPPfit
 #' @aliases plotGPPfit,ANY-method
 #' @export
-setGeneric(name="runLM",
+setGeneric(name="plotGPPfit",
            def=function(fit, df, obvColName, obvName, expv, starttime, timeColName, legendLoc = 'topleft', xlabel=NULL, ylabel=NULL, actualdatacol = 'black', preddatacol = 'red',...)
            {standardGeneric("plotGPPfit")}
 )
