@@ -16,13 +16,13 @@
 #' @aliases writeMod,ANY-method
 #' @export
 setGeneric(name="writeMod",
-           def=function(noise, ncov)
+           def=function(noise, ncov, printMod)
            {standardGeneric("writeMod")}
 )
 
 #' @export
 setMethod(f="writeMod",
-          definition=function(noise, ncov){
+          definition=function(noise, ncov, printMod= FALSE){
             modstring = 'data { \n'
             
             for (i in 1:ncov){
@@ -88,12 +88,11 @@ setMethod(f="writeMod",
               modstring = paste0(modstring, 'matrix[N_years, N_years] x',i,'_L_cov; \n')
               modstring = paste0(modstring, 'x', i,'_cov = cov_exp_quad(years, x',i,'1_sigma_GP_long,
                           x',i,'_length_GP_long); \n')
-              modstring = paste0(modstring, 'for (year in 1:N_years) x',i,'_cov[year, year] += x',i,'nug; \n') #this for loop is just the one line correct? I didn't see any brackets next to it, so I assumed that it was just one line. Line 75 in Noise2.stan
+              modstring = paste0(modstring, 'for (year in 1:N_years) x',i,'_cov[year, year] += x',i,'nug; \n') 
               modstring = paste0(modstring, 'x',i,'_L_cov = cholesky_decompose(x',i,'_cov); \n')
-              modstring = paste0(modstring, 'x',i,'_GP_term = x',i,'_L_cov * x',i,'_GP_std;
-    }')
+              modstring = paste0(modstring, 'x',i,'_GP_term = x',i,'_L_cov * x',i,'_GP_std; \n }')
             }
-            #line 83 below, there is a ' in the code, and I can't tell if its intentional or not. I assumed it was intentional and included it as \'. The original code is line 91 in Noise2.stan
+           
             modstring = paste0(modstring, '{
     matrix[N_years, N_years] y_cov;
     matrix[N_years, N_years] y_L_cov;
@@ -164,7 +163,7 @@ setMethod(f="writeMod",
               modstring = paste0(modstring, '} \n')
               modstring = paste0(modstring, 'xz',i,'[n] ~ normal(x',i,'b0 + x1_year_re[Year[n]] + x',i,'_country_re[Country[n]] + x',i,'_GP_term[Year[n], Country[n]], x',i,'_sigma); \n')
               modstring = paste0(modstring, '} \n')
-              modstring = paste0(modstring, '} \n') #here each of these is going to have an extra } at the end of each bloc, but I think this corresponds to the opening mode {... its in the code you sent, which I imagine works, but just wanted to draw your attention to it (line 166, 185, 202 in Noise2.stan)
+              modstring = paste0(modstring, '} \n') 
             }
             modstring = paste0(modstring, 'y_counter_in = 1;
   y_counter_out = 1;
@@ -176,7 +175,7 @@ setMethod(f="writeMod",
   }else{
   yz[n] = y_in[y_counter_in];
   y_counter_in += 1;
-  }
+ }
   }else{
   yz[n] = y_in[y_counter_in];
   y_counter_in += 1;
@@ -197,6 +196,9 @@ setMethod(f="writeMod",
   vector[y_N_miss] ystar;
   for(nm in 1:y_N_miss) ystar[nm] = normal_rng(y_miss[nm], ', noise,');
   }')
+if (printMod) cat(modstring)
+return(modstring)
 })
+
 
  
