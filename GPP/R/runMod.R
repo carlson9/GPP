@@ -18,23 +18,20 @@
 #' @aliases runMod,ANY-method
 #' @export
 setGeneric(name="runMod",
-           def=function(modText, dataBloc, iter, filepath)
+           def=function(modText, dataBloc, obvColName, unit, iter, filepath)
            {standardGeneric("runMod")}
 )
 
 #' @export
 setMethod(f="runMod",
-          definition=function(modText, dataBloc, obvColName, iter = 25000, filepath=NULL){
+          definition=function(modText, dataBloc, obvColName, unit, iter = 25000, filepath=NULL){
             require(rstan)
             if (!is.null(filepath)) setwd(filepath)
-            i = seq(1, unique(obvColName)-1,1)
-            fit = stan(model_code = modText, model_name = countries[i], data = dataBloc,
+            fit = rstan::stan(model_code = modText, model_name = unit, data = dataBloc,
                        iter = iter, chains = 1, cores = 1, seed = i,
                        control = list(adapt_delta = .999, max_treedepth = 10, stepsize = 5))
-            save(fit, file = paste0(countries[i], 'NoisePlacebo.Rdata'))
-            rm(fit)
-            final_fit = load(paste0(countries[i], 'NoisePlacebo.Rdata'))
-            return(final_fit)
+            save(fit, file = paste0(unit, 'Placebo.Rdata'))
+            return(fit)
           })
             
         
