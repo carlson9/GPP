@@ -30,7 +30,7 @@ setMethod(f="runMod",
             fit = rstan::stan(model_code = modText, model_name = unit, data = dataBloc,
                        iter = iter, chains = 1, cores = 1, seed = i,
                        control = list(adapt_delta = .999, max_treedepth = 10, stepsize = 5))
-            save(fit, file = paste0(unit, 'Placebo.Rdata'))
+            save(fit, file = paste0(unit, 'Test.Rdata'))
             return(fit)
           })
             

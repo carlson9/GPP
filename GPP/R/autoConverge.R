@@ -18,11 +18,13 @@ setMethod(f="autoConverge",
               cl <- parallel::makeCluster(ncores, type='FORK', useXDR = FALSE)
               within = numeric(nUntreated)
               parrallel::parLapply(cl, 1:ncores, function(nc) {
+                require(rstan)
                 unTUnit = unTUnits[(ql - 1)*nc + nc]
                 modText = GPP::writeMod(noise, ncov, printMod)
                 d2 = df[!(df[, obvColName] == obvName & df[, timeColName] > starttime),]
                 ys = d2[, outcomeName]
                 d3 = d2[!(df[, obvColName] == unTUnit & df[, timeColName] > starttime),]
+                ys[d2[, obvColName] == obvName & d2[, timeColName] > starttime] = NA
                   xs = list()
                   for(n in 1:length(controlVars)){
                     assign(paste0('xs[[x', n, '_N_obs]]'), sum(!is.na(get(paste0('d3$', controlVars[n])))))
@@ -40,22 +42,24 @@ setMethod(f="autoConverge",
                     Year = as.numeric(as.factor(d2[, timeColName])),
                     y_in = as.numeric(scale(as.numeric(na.omit(ys))))
                   ))
-                  fit = GPP::runMod(modText, dataBloc)
+                  fit = GPP::runMod(modText, dataBloc, obvColName, unit = unTUnit, iter, filepath)
                   totest = ys[d2[, obvColName] == unTUnit & d2[, timeColName] > starttime]
                   modLength = max(unique(d3[, timeColName])) - starttime + 1
                   totest = ys[d2[, obvColName] == unTUnit & d2[, timeColName] > starttime]
-                  within[(ql - 1)*cl + cl] = totest > summary(fit)$summary[paste0('ystar[', 1:modLength, ']'), '2.5%']*sd(as.numeric(na.omit(ys))) + mean(as.numeric(na.omit(ys))) &
-                               totest < summary(fit)$summary[paste0('ystar[', 1:modLength, ']'), '97.5%']*sd(as.numeric(na.omit(ys))) + mean(as.numeric(na.omit(ys)))
+                  within[(ql - 1)*cl + cl] = totest > rstan::summary(fit)$summary[paste0('ystar[', 1:modLength, ']'), '2.5%']*sd(as.numeric(na.omit(ys))) + mean(as.numeric(na.omit(ys))) &
+                               totest < rstan::summary(fit)$summary[paste0('ystar[', 1:modLength, ']'), '97.5%']*sd(as.numeric(na.omit(ys))) + mean(as.numeric(na.omit(ys)))
                 
             })
               if(ncores %% nUntreated != 0){
                 ncores2 = ncores %% nUntreated
                 parrallel::parLapply(cl, 1:ncores2, function(nc) {
+                  require(rstan)
                   unTUnit = unTUnits[nUntreated - nc + 1]
                   modText = GPP::writeMod(noise, ncov, printMod)
                   d2 = df[!(df[, obvColName] == obvName & df[, timeColName] > starttime),]
                   ys = d2[, outcomeName]
                   d3 = d2[!(df[, obvColName] == unTUnit & df[, timeColName] > starttime),]
+                  ys[d2[, obvColName] == obvName & d2[, timeColName] > starttime] = NA
                     xs = list()
                     for(n in 1:length(controlVars)){
                       assign(paste0('xs[[x', n, '_N_obs]]'), sum(!is.na(get(paste0('d3$', controlVars[n])))))
@@ -73,12 +77,12 @@ setMethod(f="autoConverge",
                       Year = as.numeric(as.factor(d2[, timeColName])),
                       y_in = as.numeric(scale(as.numeric(na.omit(ys))))
                     ))
-                    fit = GPP::runMod(modText, dataBloc)
+                    fit = GPP::runMod(modText, dataBloc, obvColName, unit = unTUnit, iter, filepath)
                     totest = ys[d2[, obvColName] == unTUnit & d2[, timeColName] > starttime]
                     modLength = max(unique(d3[, timeColName])) - starttime + 1
                     totest = ys[d2[, obvColName] == unTUnit & d2[, timeColName] > starttime]
-                    within[(ql - 1)*cl + cl] = totest > summary(fit)$summary[paste0('ystar[', 1:modLength, ']'), '2.5%']*sd(as.numeric(na.omit(ys))) + mean(as.numeric(na.omit(ys))) &
-                      totest < summary(fit)$summary[paste0('ystar[', 1:modLength, ']'), '97.5%']*sd(as.numeric(na.omit(ys))) + mean(as.numeric(na.omit(ys)))
+                    within[(ql - 1)*cl + cl] = totest > rstan::summary(fit)$summary[paste0('ystar[', 1:modLength, ']'), '2.5%']*sd(as.numeric(na.omit(ys))) + mean(as.numeric(na.omit(ys))) &
+                      totest < rstan::summary(fit)$summary[paste0('ystar[', 1:modLength, ']'), '97.5%']*sd(as.numeric(na.omit(ys))) + mean(as.numeric(na.omit(ys)))
                   
                 })
               }

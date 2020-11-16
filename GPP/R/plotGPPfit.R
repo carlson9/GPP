@@ -34,7 +34,7 @@
 #' @aliases plotGPPfit,ANY-method
 #' @export
 setGeneric(name="plotGPPfit",
-           def=function(fit, df, obvColName, obvName, outcomeName, starttime, timeColName, legendLoc = 'topleft', xlabel=NULL, ylabel=NULL, actualdatacol = 'black', preddatacol = 'red',...)
+           def=function(fit, df, obvColName, obvName, outcomeName, starttime, timeColName, legendLoc, xlabel, ylabel, actualdatacol, preddatacol, ...)
            {standardGeneric("plotGPPfit")}
 )
 
