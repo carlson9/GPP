@@ -1,0 +1,14 @@
+Package: GPP
+Title: Estimating a counterfactual with uncertainty using Gaussian process projection. 
+Version: 0.1
+Author: Devin P. Brown and David G. Carlson
+Maintainer: David G. Carlson <carlson.david@wustl.edu>
+Description: This package estimates a counterfactual using Gaussian process projection. It takes a dataframe, creates missingness in the desired outcome variable and estimates counterfactual values based on all information in the dataframe. The package writes Stan code, checks it for convergence and adds artificial noise to prevent overfitting and returns a plot of actual values and estimated counterfactual values using r-base plot.  
+Depends:
+    R (>= 3.0.0),
+    methods
+    rstan
+License: GPL (>= 2)
+Suggests:
+    none
+RoxygenNote: 7.1.1
