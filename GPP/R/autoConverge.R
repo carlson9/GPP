@@ -1,6 +1,34 @@
-#runs runMod.R with placebos and given starting noise level and epsilon
-#   checks if converged, updates if not
-#   once converged, runs it on the actual data, return the Stan fit and noise level
+#' Checks Stan model for convergence, then runs model on actual data.
+#'
+#' Return a converged Stan model fit and the recommended noise level.
+#'
+#' @param df The dataframe used for the model.
+#' @param controlVars String of column names for control variables.
+#' @param nUntreated The number of untreated units in the model.
+#' @param obvColName The column name that includes the observation subject to the counterfactual.
+#' @param obvName The name of the observation subject to the counterfactual. 
+#' @param outcomeName The outcome variable of interest. 
+#' @param starttime The start year of the counterfactual estimation. 
+#' @param timeColName The name of the column that includes the time variable.
+#' @param ncores The number of cores to be used to run the model. 
+#' @param epsilon The desired level of convergence.
+#' @param noise The baseline level of noise to be added to the model to prevent overfit. Updates as the model runs. 
+#' @param printMod Boolean. Defaults FALSE. If TRUE, returns the entire Stan model fit. See details.
+#' @param shift The magnitude of adjustment for the noise level per iteration. Defaults to 0.05.
+#'
+#' @return The fit of the converged Stan model and the recommended noise level. 
+#' @author Devin P. Brown \email{devinpbrown96@@gmail.com} and David Carlson \email{carlson.david@@wustl.edu} 
+#' @examples
+#' \dontrun{
+#' 
+#' 
+#' }
+#' 
+#' 
+#' @seealso \code{\link{plotGPPfit.R}} \code{\link{runMod.R}} \code{\link{GPP.R}} \code{\link{writeMod.R}}
+#' @rdname autoConverge
+#' @aliases autoConverge,ANY-method
+#' @export
 setGeneric(name="autoConverge",
            def=function(df, controlVars, nUntreated, obvColName, obvName, outcomeName, starttime, timeColName, ncores, epsilon, noise, printMod, shift)
            {standardGeneric("autoConverge")}

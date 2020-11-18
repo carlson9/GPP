@@ -1,8 +1,9 @@
 # TODO (update as we go) #
-* write a generalized function for plotting results
-* write a function that will create the Stan code
-* write a function that runs the Stan code and checks the model for convergence
-* write a function that checks coverage of placebos
-* write a wrapper to the above functions that updates noise until convergence
-* write a super wrapper that does it all
-* document as writing, and add sub-tasks to this list
+* write a function that checks coverage of placebos - #have we done this?
+
+* Check documentation for autoConverge and GPP. I'm not sure whether GPP as the wrapper function needs different documentation than a sub-function. 
+* Check brackets/ parentheses in autoConverge. RStudio is showing an error.
+* Right now it looks like autoConverge is just returning noise level, so we will need to go back and either have runMod create the dataBloc to feed into the Stan model, or we need to have autoconverge return the printed dataBloc for runMod
+
+* (Together) Write example for autoConverge, runMod (dataBloc), and GPP 
+* Add details section for autoConverge @param printMod & ncores. Details runMod @param filepath

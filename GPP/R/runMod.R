@@ -10,7 +10,7 @@
 #' @return The fit for the GPP counterfactual Stan model. 
 #' @author Devin P. Brown \email{devinpbrown96@@gmail.com} and David Carlson \email{carlson.david@@wustl.edu} 
 #' @examples
-#' 
+#'
 #' runMod(modText = GPP::writeMod(0.25, 2), dataBloc = , iter = 5, filepath = '~/Desktop/StanFitFiles')
 #' 
 #' @seealso \code{\link{plotGPPfit.R}} \code{\link{writeMod.R}} \code{\link{GPP.R}} \code{\link{autoconverge.R}}
