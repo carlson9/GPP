@@ -1,6 +1,10 @@
 #' Runs the model, given the data and treated case (may be a placebo).
 #'
 #' Returns a fit of the Stan model for all observations. 
+#' 
+#' @details 
+#' 
+#' We recommend creating a new folder for the file path since the Stan fit creates a large number of files.
 #'
 #' @param modText This is the string that contains your Stan code. Can be written with \code{\link{writeMod.R}}.
 #' @param dataBloc This is the data that you pass to the Stan code. It is automatically generated when you run \code{\link{autoconverge.R}}. 

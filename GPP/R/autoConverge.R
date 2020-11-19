@@ -1,6 +1,12 @@
 #' Checks Stan model for convergence, then runs model on actual data.
 #'
 #' Return a converged Stan model fit and the recommended noise level.
+#' 
+#' @details 
+#' 
+#' We recommend keeping printMod as FALSE, otherwise, the function will return the entire fit which could be upwards of 5 GB. 
+#' 
+#' We also recommend using all cores on your machine to speed up model run time. If you are unsure about the number of cores in your machine, see doParallel::detectCores().
 #'
 #' @param df The dataframe used for the model.
 #' @param controlVars String of column names for control variables.
