@@ -4,7 +4,7 @@
 #' 
 #' @details 
 #' 
-#' We recommend keeping printMod as FALSE, otherwise, the function will return the entire fit which could be upwards of 5 GB. 
+#' We recommend keeping printMod as FALSE, otherwise, the function will write the model to the console for every model run on the convergence.
 #' 
 #' We also recommend using all cores on your machine to speed up model run time. If you are unsure about the number of cores in your machine, see doParallel::detectCores().
 #'
@@ -14,15 +14,15 @@
 #' @param obvColName The column name that includes the observation subject to the counterfactual.
 #' @param obvName The name of the observation subject to the counterfactual. 
 #' @param outcomeName The outcome variable of interest. 
-#' @param starttime The start year of the counterfactual estimation. 
+#' @param starttime The start time of the counterfactual estimation. 
 #' @param timeColName The name of the column that includes the time variable.
-#' @param ncores The number of cores to be used to run the model. 
-#' @param epsilon The desired level of convergence.
+#' @param ncores The number of cores to be used to run the model. Default of NULL will utilize all cores.
+#' @param epsilon The desired level of convergence, i.e. how close to the 0.95 coverage is acceptable.
 #' @param noise The baseline level of noise to be added to the model to prevent overfit. Updates as the model runs. 
-#' @param printMod Boolean. Defaults FALSE. If TRUE, returns the entire Stan model fit. See details.
+#' @param printMod Boolean. Defaults FALSE. If TRUE, prints the model block for the run to the console. See details.
 #' @param shift The magnitude of adjustment for the noise level per iteration. Defaults to 0.05.
 #'
-#' @return The fit of the converged Stan model and the recommended noise level. 
+#' @return The recommended noise level after convergence.
 #' @author Devin P. Brown \email{devinpbrown96@@gmail.com} and David Carlson \email{carlson.david@@wustl.edu} 
 #' @examples
 #' \dontrun{
