@@ -24,12 +24,6 @@
 #'
 #' @return The recommended noise level after convergence.
 #' @author Devin P. Brown \email{devinpbrown96@@gmail.com} and David Carlson \email{carlson.david@@wustl.edu} 
-#' @examples
-#' \dontrun{
-#' 
-#' 
-#' }
-#' 
 #' 
 #' @seealso \code{\link{plotGPPfit.R}} \code{\link{runMod.R}} \code{\link{GPP.R}} \code{\link{writeMod.R}}
 #' @rdname autoConverge

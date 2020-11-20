@@ -4,6 +4,8 @@
 #' 
 #' @details 
 #' 
+#' For iterations, check that your model converged (we recommend all r-hats close to 1 and examining traceplots).
+#' 
 #' We recommend creating a new folder for the file path since the Stan fit creates a large number of files at runtime.
 #'
 #' @param modText This is the string that contains your Stan code. Can be written with \code{\link{writeMod.R}}.
@@ -13,9 +15,6 @@
 #'
 #' @return The fit for the GPP counterfactual Stan model. 
 #' @author Devin P. Brown \email{devinpbrown96@@gmail.com} and David Carlson \email{carlson.david@@wustl.edu} 
-#' @examples
-#'
-#' runMod(modText = GPP::writeMod(0.25, 2), dataBloc = , iter = 5, filepath = '~/Desktop/StanFitFiles')
 #' 
 #' @seealso \code{\link{plotGPPfit.R}} \code{\link{writeMod.R}} \code{\link{GPP.R}} \code{\link{autoconverge.R}}
 #' @rdname runMod
