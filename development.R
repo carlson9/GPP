@@ -3,6 +3,7 @@ library(devtools)
 library(roxygen2)
 library(rstan)
 library(methods)
+library(parallel)
 
 
 setwd("~/Dropbox/GPP")
@@ -14,10 +15,7 @@ setwd("~/Dropbox/GPP")
 current.code <- as.package("GPP")
 load_all(current.code)
 document(current.code)
-current.code <- as.package("GPP")
-load_all(current.code)
-check(current.code)
-build(current.code)
+#change NAMESPACE to import functions
 
 
 
