@@ -1,13 +1,11 @@
 ## Load libraries and set working directory
 library(devtools)
 library(roxygen2)
-library(jsonlite)
-library(httr)
-library(plyr)
-library(testthat)
+library(rstan)
+library(methods)
 
 
-setwd("~/GPP")
+setwd("~/Dropbox/GPP")
 # This will need to be changed to match your directory of where the package is.
 ## This is run once when the package strcuture is first created
 

@@ -21,7 +21,8 @@
 #' @param xlabel The label of the x-axis in the final graph. Defaults to input for 'timeColName'.
 #' @param ylabel The preferred label of the y-axis in the final graph. Defaults to input for 'outcomeName'.
 #' @param actualdatacol The preferred color for plotted line for actual data. Defaults to black. 
-#' @param predatacol The preferred color for plotted line for predicted counterfactual data. Defaults to red. 
+#' @param preddatacol The preferred color for plotted line for predicted counterfactual data. Defaults to red. 
+#' @param ... Further parameters passed to the plot function.
 #' 
 #' @details 
 #' We recommend using all cores on your machine to speed up model run time. If you are unsure about the number of cores in your machine, see \code{doParallel::detectCores()}.
@@ -42,16 +43,20 @@
 #'
 #' \dontrun{
 #' data(GDPdata)
-#' out = GPP(df = GDPdata, controlVars = c('invest', 'school', 'ind'), nUntreated = length(unique(GDPdata$country))-1, obvColName = 'country', obvname = 'West Germany', outcomeName = 'gdp', starttime = 1989, timeColName = 'year')
-#' 
+#' out = GPP(df = GDPdata, 
+#'     controlVars = c('invest', 'school', 'ind'),
+#'     nUntreated = length(unique(GDPdata$country))-1, 
+#'     obvColName = 'country', obvname = 'West Germany', 
+#'     outcomeName = 'gdp', starttime = 1989, 
+#'     timeColName = 'year')
 #' }
 #' 
-#' @seealso \code{\link{plotGPPfit.R}} \code{\link{writeMod.R}} \code{\link{runMod.R}} \code{\link{autoconverge.R}}
+#' @seealso \code{\link{plotGPPfit}} \code{\link{writeMod}} \code{\link{runMod}} \code{\link{autoconverge}}
 #' @rdname GPP
-#' @aliases GPP, ANY-method
+#' @aliases GPP,ANY-method
 #' @export
-setGeneric(name="autoConverge",
-           def=function(df, controlVars, nUntreated, obvColName, obvName, outcomeName, starttime, timeColName, ncores, epsilon, noise, printMod, shift, legendLoc, xlabel, ylabel, actualdatacol, preddatacol,...)
+setGeneric(name="GPP",
+           def=function(df, controlVars, nUntreated, obvColName, obvName, outcomeName, starttime, timeColName, ncores = NULL, epsilon = .02, noise = .1, printMod = FALSE, shift = .05, iter = 25000, filepath = NULL, legendLoc = 'topleft', xlabel=NULL, ylabel=NULL, actualdatacol = 'black', preddatacol = 'red',...)
            {standardGeneric("GPP")}
 )
 #' @export

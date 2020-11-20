@@ -9,29 +9,30 @@
 #' We recommend creating a new folder for the file path since the Stan fit creates a large number of files at runtime.
 #'
 #' @param modText This is the string that contains your Stan code. Can be written with \code{\link{writeMod.R}}.
-#' @param dataBloc This is the data that you pass to the Stan code. It is automatically generated when you run \code{\link{autoconverge.R}}. 
+#' @param dataBloc This is the data that you pass to the Stan code. It is automatically generated when you run \code{\link{autoconverge.R}}.
+#' @param unit The unit of observation to project.  
 #' @param iter The number of iterations you would like to run. Defaults to 25,000. 
 #' @param filepath Your preferred place to save the fit data. See Details. 
 #'
 #' @return The fit for the GPP counterfactual Stan model. 
 #' @author Devin P. Brown \email{devinpbrown96@@gmail.com} and David Carlson \email{carlson.david@@wustl.edu} 
 #' 
-#' @seealso \code{\link{plotGPPfit.R}} \code{\link{writeMod.R}} \code{\link{GPP.R}} \code{\link{autoconverge.R}}
+#' @seealso \code{\link{plotGPPfit}} \code{\link{writeMod}} \code{\link{GPP}} \code{\link{autoconverge}}
 #' @rdname runMod
 #' @aliases runMod,ANY-method
 #' @export
 setGeneric(name="runMod",
-           def=function(modText, dataBloc, obvColName, unit, iter, filepath)
+           def=function(modText, dataBloc, unit, iter = 25000, filepath = NULL)
            {standardGeneric("runMod")}
 )
 
 #' @export
 setMethod(f="runMod",
-          definition=function(modText, dataBloc, obvColName, unit, iter = 25000, filepath=NULL){
+          definition=function(modText, dataBloc, unit, iter = 25000, filepath=NULL){
             require(rstan)
             if (!is.null(filepath)) setwd(filepath)
             fit = rstan::stan(model_code = modText, model_name = unit, data = dataBloc,
-                       iter = iter, chains = 1, cores = 1, seed = i,
+                       iter = iter, chains = 1, cores = 1,
                        control = list(adapt_delta = .999, max_treedepth = 10, stepsize = 5))
             save(fit, file = paste0(unit, 'Test.Rdata'))
             return(fit)

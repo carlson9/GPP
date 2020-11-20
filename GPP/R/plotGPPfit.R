@@ -13,7 +13,7 @@
 #' @param xlabel The label of the x-axis in the final graph. Defaults to input for 'timeColName'.
 #' @param ylabel The preferred label of the y-axis in the final graph. Defaults to input for 'outcomeName'.
 #' @param actualdatacol The preferred color for plotted line for actual data. Defaults to black. 
-#' @param predatacol The preferred color for plotted line for predicted counterfactual data. Defaults to red. 
+#' @param preddatacol The preferred color for plotted line for predicted counterfactual data. Defaults to red. 
 #' 
 #' @return A plot built in r-base
 #' 
@@ -26,7 +26,11 @@
 #' df = d
 #' rm(list=d) 
 #' 
-#' plotGPPfit(fit=fit, df=df, obvColName='country', obvName='West Germany',outcomeName='gdp', starttime=1990, timeColName='year', legendLoc='bottomright', xlabel="Test X-Label", ylabel = "Test Y-Label", actualdatacol = 'blue', preddatacol = 'green')
+#' plotGPPfit(fit=fit, df=df, obvColName='country',
+#'     obvName='West Germany',outcomeName='gdp', starttime=1990, 
+#'     timeColName='year', legendLoc='bottomright', 
+#'     xlabel="Test X-Label", ylabel = "Test Y-Label", 
+#'     actualdatacol = 'blue', preddatacol = 'green')
 #' }
 #' 
 #' @seealso \code{\link{autoConverge}} \code{\link{GPP}} \code{\link{runMod}} \code{\link{writeMod}}
@@ -34,7 +38,7 @@
 #' @aliases plotGPPfit,ANY-method
 #' @export
 setGeneric(name="plotGPPfit",
-           def=function(fit, df, obvColName, obvName, outcomeName, starttime, timeColName, legendLoc, xlabel, ylabel, actualdatacol, preddatacol, ...)
+           def=function(fit, df, obvColName, obvName, outcomeName, starttime, timeColName, legendLoc = 'topleft', xlabel = NULL, ylabel = NULL, actualdatacol = 'black', preddatacol = 'red', ...)
            {standardGeneric("plotGPPfit")}
 )
 
@@ -61,6 +65,7 @@ setMethod(f="plotGPPfit",
             lines(starttime:max(df[,timeColName]), summary(fit)$summary[paste0('ystar[', timelength, ']'), '97.5%']*sd(as.numeric(na.omit(ys2))) + mean(as.numeric(na.omit(ys2))),
                   type='l', col=preddatacol, lty=2)
             legend(legendLoc , legend = c(ylabel, paste('Predicted', ylabel)), col = c(actualdatacol, preddatacol), lty = 1, bty = 'n')
+            ?legend
             }
 )
           

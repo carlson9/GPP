@@ -25,30 +25,29 @@
 #' @return The recommended noise level after convergence.
 #' @author Devin P. Brown \email{devinpbrown96@@gmail.com} and David Carlson \email{carlson.david@@wustl.edu} 
 #' 
-#' @seealso \code{\link{plotGPPfit.R}} \code{\link{runMod.R}} \code{\link{GPP.R}} \code{\link{writeMod.R}}
+#' @seealso \code{\link{plotGPPfit}} \code{\link{runMod}} \code{\link{GPP}} \code{\link{writeMod}}
 #' @rdname autoConverge
 #' @aliases autoConverge,ANY-method
 #' @export
 setGeneric(name="autoConverge",
-           def=function(df, controlVars, nUntreated, obvColName, obvName, outcomeName, starttime, timeColName, ncores, epsilon, noise, printMod, shift)
+           def=function(df, controlVars, nUntreated, obvColName, obvName, outcomeName, starttime, timeColName, ncores = NULL, epsilon = .02, noise = .1, printMod = FALSE, shift = .05)
            {standardGeneric("autoConverge")}
 )
+
 #' @export
 setMethod(f="autoConverge",
           definition=function(df, controlVars, nUntreated, obvColName, obvName, outcomeName, starttime, timeColName, ncores = NULL, epsilon = .02, noise = .1, printMod = FALSE, shift = .05){
             unTUnits = unique(df[, obvColName])
             unTUnits = unTUnits[unTUnits != obvName]
-            require(parallel)
             if(is.null(ncores)) ncores = parallel::detectCores()
             ncores = min(nUntreated, ncores)
             nLoops = ncores %/% nUntreated
             for(ql in 1:nLoops){
               cl <- parallel::makeCluster(ncores, type='FORK', useXDR = FALSE)
               within = numeric(nUntreated)
-              parrallel::parLapply(cl, 1:ncores, function(nc) {
-                require(rstan)
+              parallel::parLapply(cl, 1:ncores, function(nc) {
                 unTUnit = unTUnits[(ql - 1)*nc + nc]
-                modText = GPP::writeMod(noise, ncov, printMod)
+                modText = GPP::writeMod(noise, ncov = length(controlVars), printMod)
                 d2 = df[!(df[, obvColName] == obvName & df[, timeColName] > starttime),]
                 ys = d2[, outcomeName]
                 d3 = d2[!(df[, obvColName] == unTUnit & df[, timeColName] > starttime),]
@@ -77,13 +76,12 @@ setMethod(f="autoConverge",
                   within[(ql - 1)*cl + cl] = totest > rstan::summary(fit)$summary[paste0('ystar[', 1:modLength, ']'), '2.5%']*sd(as.numeric(na.omit(ys))) + mean(as.numeric(na.omit(ys))) &
                                totest < rstan::summary(fit)$summary[paste0('ystar[', 1:modLength, ']'), '97.5%']*sd(as.numeric(na.omit(ys))) + mean(as.numeric(na.omit(ys)))
                 
-            })
+            })}
               if(ncores %% nUntreated != 0){
                 ncores2 = ncores %% nUntreated
-                parrallel::parLapply(cl, 1:ncores2, function(nc) {
-                  require(rstan)
+                parallel::parLapply(cl, 1:ncores2, function(nc) {}
                   unTUnit = unTUnits[nUntreated - nc + 1]
-                  modText = GPP::writeMod(noise, ncov, printMod)
+                  modText = GPP::writeMod(noise, ncov = length(controlVars), printMod)
                   d2 = df[!(df[, obvColName] == obvName & df[, timeColName] > starttime),]
                   ys = d2[, outcomeName]
                   d3 = d2[!(df[, obvColName] == unTUnit & df[, timeColName] > starttime),]

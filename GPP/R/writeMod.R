@@ -4,19 +4,23 @@
 #'
 #' @param noise The desired amount of artificial noise to add to the model.
 #' @param ncov The number of covariates to include in the model. 
+#' @param printMod Boolean. Defaults FALSE. If TRUE, prints each model block to the console. See details.
+#'
+#'@details
+#'We recommend keeping printMod as FALSE, otherwise, the function will write the model to the console for every model run on the convergence.
 #'
 #' @return A string of Stan code that can be run with \code{\link{runMod.R}} 
 #' @author Devin P. Brown \email{devinpbrown96@@gmail.com} and David Carlson \email{carlson.david@@wustl.edu} 
 #' @examples
-#' 
+#' \dontrun{
 #' writeMod(noise = 0.25, ncov = 2)
-#' 
-#' @seealso \code{\link{plotGPPfit.R}} \code{\link{runMod.R}} \code{\link{GPP.R}} \code{\link{autoconverge.R}}
+#' }
+#' @seealso \code{\link{plotGPPfit}} \code{\link{runMod}} \code{\link{GPP}} \code{\link{autoconverge}}
 #' @rdname writeMod
 #' @aliases writeMod,ANY-method
 #' @export
 setGeneric(name="writeMod",
-           def=function(noise, ncov, printMod)
+           def=function(noise, ncov, printMod = FALSE)
            {standardGeneric("writeMod")}
 )
 
