@@ -46,7 +46,9 @@ setMethod(f="autoConverge",
             unTUnits = unTUnits[unTUnits != obvName]
             if(is.null(ncores)) ncores = parallel::detectCores()
             ncores = min(nUntreated, ncores)
-            nLoops = ncores %/% nUntreated
+            nLoops = nUntreated %/% ncores
+            if(nLoops == 0) nLoops = 1
+            if(ncores == 0) ncores = nUntreated
             for(ql in 1:nLoops){
               cl <- parallel::makeCluster(ncores, type='FORK', useXDR = FALSE)
               within = numeric(nUntreated)
@@ -82,8 +84,8 @@ setMethod(f="autoConverge",
                                totest < rstan::summary(fit)$summary[paste0('ystar[', 1:modLength, ']'), '97.5%']*sd(as.numeric(na.omit(ys))) + mean(as.numeric(na.omit(ys)))
                 
             })}
-              if(ncores %% nUntreated != 0){
-                ncores2 = ncores %% nUntreated
+              if(nUntreated %% ncores != 0 & nUntreated > ncores){
+                ncores2 = nUntreated %% ncores
                 parallel::parLapply(cl, 1:ncores2, function(nc) {
                   unTUnit = unTUnits[nUntreated - nc + 1]
                   modText = GPP::writeMod(noise, ncov = length(controlVars), printMod)
