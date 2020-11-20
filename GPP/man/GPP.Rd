@@ -79,7 +79,7 @@ A plot of the actual values and the estimated counterfactual values of the model
 Returns a list of a plot object (after making the plot) of estimated counterfactual values after checking for model convergence and adjusting the noise level, and returns the fitted model.
 }
 \details{
-We recommend using all cores on your machine to speed up model run time. If you are unsure about the number of cores in your machine, see \code{doParallel::detectCores()}.
+We recommend using all cores on your machine to speed up model run time. If you are unsure about the number of cores in your machine, see \code{parallel::detectCores()}.
 
 We recommend keeping printMod as FALSE, otherwise, the function will write the model to the console for every model run on the convergence.
 
@@ -94,7 +94,7 @@ data(GDPdata)
 out = GPP(df = GDPdata, 
     controlVars = c('invest', 'school', 'ind'),
     nUntreated = length(unique(GDPdata$country))-1, 
-    obvColName = 'country', obvname = 'West Germany', 
+    obvColName = 'country', obvName = 'West Germany', 
     outcomeName = 'gdp', starttime = 1989, 
     timeColName = 'year')
 }

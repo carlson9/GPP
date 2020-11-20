@@ -55,7 +55,7 @@ setMethod(f="autoConverge",
                 modText = GPP::writeMod(noise, ncov = length(controlVars), printMod)
                 d2 = df[!(df[, obvColName] == obvName & df[, timeColName] > starttime),]
                 ys = d2[, outcomeName]
-                d3 = d2[!(df[, obvColName] == unTUnit & df[, timeColName] > starttime),]
+                d3 = d2[!(df2[, obvColName] == unTUnit & df2[, timeColName] > starttime),]
                 ys[d2[, obvColName] == obvName & d2[, timeColName] > starttime] = NA
                   xs = list()
                   for(n in 1:length(controlVars)){
