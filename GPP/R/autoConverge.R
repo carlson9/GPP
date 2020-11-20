@@ -48,7 +48,6 @@ setMethod(f="autoConverge",
             ncores = min(nUntreated, ncores)
             nLoops = nUntreated %/% ncores
             if(nLoops == 0) nLoops = 1
-            if(ncores == 0) ncores = nUntreated
             for(ql in 1:nLoops){
               cl <- parallel::makeCluster(ncores, type='FORK', useXDR = FALSE)
               within = numeric(nUntreated)
