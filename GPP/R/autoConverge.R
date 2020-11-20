@@ -76,7 +76,7 @@ setMethod(f="autoConverge",
                     y_in = as.numeric(scale(as.numeric(na.omit(ys))))
                   ))
                   fit = GPP::runMod(modText, dataBloc, obvColName, unit = unTUnit, iter, filepath)
-                  totest = ys[d2[, obvColName] == unTUnit & d2[, timeColName] > starttime]
+                  totest = d2[d2[, obvColName] == unTUnit & d2[, timeColName] > starttime, outcomeName]
                   modLength = max(unique(d3[, timeColName])) - starttime + 1
                   totest = ys[d2[, obvColName] == unTUnit & d2[, timeColName] > starttime]
                   within[(ql - 1)*cl + cl] = totest > rstan::summary(fit)$summary[paste0('ystar[', 1:modLength, ']'), '2.5%']*sd(as.numeric(na.omit(ys))) + mean(as.numeric(na.omit(ys))) &
@@ -90,7 +90,7 @@ setMethod(f="autoConverge",
                   modText = GPP::writeMod(noise, ncov = length(controlVars), printMod)
                   d2 = df[!(df[, obvColName] == obvName & df[, timeColName] > starttime),]
                   ys = d2[, outcomeName]
-                  d3 = d2[!(df[, obvColName] == unTUnit & df[, timeColName] > starttime),]
+                  d3 = d2[!(df2[, obvColName] == unTUnit & df2[, timeColName] > starttime),]
                   ys[d2[, obvColName] == obvName & d2[, timeColName] > starttime] = NA
                     xs = list()
                     for(n in 1:length(controlVars)){
@@ -112,7 +112,7 @@ setMethod(f="autoConverge",
                     fit = GPP::runMod(modText, dataBloc, obvColName, unit = unTUnit, iter, filepath)
                     totest = ys[d2[, obvColName] == unTUnit & d2[, timeColName] > starttime]
                     modLength = max(unique(d3[, timeColName])) - starttime + 1
-                    totest = ys[d2[, obvColName] == unTUnit & d2[, timeColName] > starttime]
+                    totest = d2[d2[, obvColName] == unTUnit & d2[, timeColName] > starttime, outcomeName]
                     within[(ql - 1)*cl + cl] = totest > rstan::summary(fit)$summary[paste0('ystar[', 1:modLength, ']'), '2.5%']*sd(as.numeric(na.omit(ys))) + mean(as.numeric(na.omit(ys))) &
                       totest < rstan::summary(fit)$summary[paste0('ystar[', 1:modLength, ']'), '97.5%']*sd(as.numeric(na.omit(ys))) + mean(as.numeric(na.omit(ys)))
                   
