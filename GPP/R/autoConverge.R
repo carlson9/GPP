@@ -50,20 +50,19 @@ setMethod(f="autoConverge",
             if(nLoops == 0) nLoops = 1
             for(ql in 1:nLoops){
               cl <- parallel::makeCluster(ncores, type='FORK', useXDR = FALSE)
-              within = numeric(nUntreated)
+              within = list()
               parallel::parLapply(cl, 1:ncores, function(nc) {
                 unTUnit = unTUnits[(ql - 1)*nc + nc]
                 modText = GPP::writeMod(noise, ncov = length(controlVars), printMod)
                 d2 = df[!(df[, obvColName] == obvName & df[, timeColName] > starttime),]
+                d2[d2[, obvColName] == unTUnit & d2[, timeColName] > starttime, c(outcomeName, controlVars)] = NA
                 ys = d2[, outcomeName]
-                d3 = d2[!(d2[, obvColName] == unTUnit & d2[, timeColName] > starttime),]
-                ys[d2[, obvColName] == obvName & d2[, timeColName] > starttime] = NA
                   xs = list()
                   for(n in 1:length(controlVars)){
-                    assign(paste0('xs[[x', n, '_N_obs]]'), sum(!is.na(get(paste0('d3$', controlVars[n])))))
-                    assign(paste0('xs[[x', n, '_N_miss]]'), sum(is.na(get(paste0('d3$', controlVars[n])))))
-                    assign(paste0('xs[[x', n, '_miss_ind]]'), which(is.na(get(paste0('d3$', controlVars[n])))))
-                    assign(paste0('xs[[x', n, 'in]]'), as.numeric(scale(na.omit(get(paste0('d3$', controlVars[n]))))))
+                    xs[[paste0('x', n, '_N_obs')]] = sum(!is.na(paste0(d2[, controlVars[n]])))
+                    xs[[paste0('x', n, '_N_miss')]] = sum(is.na(paste0(d2[, controlVars[n]])))
+                    xs[[paste0('x', n, '_miss_ind')]] = which(is.na(paste0(d2[, controlVars[n]])))
+                    xs[[paste0('x', n, 'in')]] = as.numeric(scale(na.omit(paste0(d2[, controlVars[n]]))))
                   }
                   dataBloc = c(xs, list(
                     y_N_obs = sum(!is.na(ys)),
@@ -78,7 +77,7 @@ setMethod(f="autoConverge",
                   fit = GPP::runMod(modText, dataBloc, obvColName, unit = unTUnit, iter, filepath)
                   totest = d2[d2[, obvColName] == unTUnit & d2[, timeColName] > starttime, outcomeName]
                   modLength = max(unique(d3[, timeColName])) - starttime + 1
-                  totest = ys[d2[, obvColName] == unTUnit & d2[, timeColName] > starttime]
+                  totest = df[df[, obvColName] == obvName & df[, timeColName] > starttime, outcomeName]
                   within[(ql - 1)*cl + cl] = totest > rstan::summary(fit)$summary[paste0('ystar[', 1:modLength, ']'), '2.5%']*sd(as.numeric(na.omit(ys))) + mean(as.numeric(na.omit(ys))) &
                                totest < rstan::summary(fit)$summary[paste0('ystar[', 1:modLength, ']'), '97.5%']*sd(as.numeric(na.omit(ys))) + mean(as.numeric(na.omit(ys)))
                 
@@ -89,16 +88,15 @@ setMethod(f="autoConverge",
                   unTUnit = unTUnits[nUntreated - nc + 1]
                   modText = GPP::writeMod(noise, ncov = length(controlVars), printMod)
                   d2 = df[!(df[, obvColName] == obvName & df[, timeColName] > starttime),]
+                  d2[d2[, obvColName] == unTUnit & d2[, timeColName] > starttime, c(outcomeName, controlVars)] = NA
                   ys = d2[, outcomeName]
-                  d3 = d2[!(d2[, obvColName] == unTUnit & d2[, timeColName] > starttime),]
-                  ys[d2[, obvColName] == obvName & d2[, timeColName] > starttime] = NA
-                    xs = list()
-                    for(n in 1:length(controlVars)){
-                      assign(paste0('xs[[x', n, '_N_obs]]'), sum(!is.na(get(paste0('d3$', controlVars[n])))))
-                      assign(paste0('xs[[x', n, '_N_miss]]'), sum(is.na(get(paste0('d3$', controlVars[n])))))
-                      assign(paste0('xs[[x', n, '_miss_ind]]'), which(is.na(get(paste0('d3$', controlVars[n])))))
-                      assign(paste0('xs[[x', n, 'in]]'), as.numeric(scale(na.omit(get(paste0('d3$', controlVars[n]))))))
-                    }
+                  xs = list()
+                  for(n in 1:length(controlVars)){
+                    xs[[paste0('x', n, '_N_obs')]] = sum(!is.na(paste0(d2[, controlVars[n]])))
+                    xs[[paste0('x', n, '_N_miss')]] = sum(is.na(paste0(d2[, controlVars[n]])))
+                    xs[[paste0('x', n, '_miss_ind')]] = which(is.na(paste0(d2[, controlVars[n]])))
+                    xs[[paste0('x', n, 'in')]] = as.numeric(scale(na.omit(paste0(d2[, controlVars[n]]))))
+                  }
                     dataBloc = c(xs, list(
                       y_N_obs = sum(!is.na(ys)),
                       y_N_miss = sum(is.na(ys)),
@@ -112,13 +110,13 @@ setMethod(f="autoConverge",
                     fit = GPP::runMod(modText, dataBloc, obvColName, unit = unTUnit, iter, filepath)
                     totest = ys[d2[, obvColName] == unTUnit & d2[, timeColName] > starttime]
                     modLength = max(unique(d3[, timeColName])) - starttime + 1
-                    totest = d2[d2[, obvColName] == unTUnit & d2[, timeColName] > starttime, outcomeName]
+                    totest = df[df[, obvColName] == obvName & df[, timeColName] > starttime, outcomeName]
                     within[(ql - 1)*cl + cl] = totest > rstan::summary(fit)$summary[paste0('ystar[', 1:modLength, ']'), '2.5%']*sd(as.numeric(na.omit(ys))) + mean(as.numeric(na.omit(ys))) &
                       totest < rstan::summary(fit)$summary[paste0('ystar[', 1:modLength, ']'), '97.5%']*sd(as.numeric(na.omit(ys))) + mean(as.numeric(na.omit(ys)))
                   
                 })
               }
-            nn = mean(within) - .95
+            nn = mean(unlist(within)) - .95
             if (epsilon < abs(nn)) return(GPP::autoConverge(df, controlVars, nUntreated, obvColName, obvName, outcomeName, starttime, timeColName, ncores, epsilon, noise = ifelse(nn > 0, noise - shift, noise + shift), printMod, shift))
             return(noise)
 })
