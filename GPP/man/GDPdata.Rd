@@ -7,20 +7,20 @@
 \format{
 A data frame with 748 rows and 14 columns. For detailed explanations of the exact measures, see \url{https://www.dropbox.com/s/n1bvqb54xrw8vyj/GPSynth.pdf?dl=0}:
 \describe{
-  \item{Index}
-  \item{Country}
-  \item{Year}
-  \item{GDP}
-  \item{Infrate}
-  \item{Trade}
-  \item{Schooling}
-  \item{Invest60}
-  \item{Invest70}
-  \item{Invest80}
-  \item{Industry}
-  \item{Invest} 
-  \item{School}
-  \item{Ind}
+  \item{index}{}
+  \item{country}{}
+  \item{year}{}
+  \item{gdp}{}
+  \item{infrate}{}
+  \item{trade}{}
+  \item{schooling}{}
+  \item{invest60}{}
+  \item{invest70}{}
+  \item{invest80}{}
+  \item{industry}{}
+  \item{invest}{}
+  \item{school}{}
+  \item{ind}{}
   }
 }
 \source{
@@ -30,9 +30,9 @@ A data frame with 748 rows and 14 columns. For detailed explanations of the exac
 GDPdata
 }
 \description{
-An example dataset for using \code{\ink{GPP}} to estimate the counterfactual GDP of West Germany assuming no reunification.
+An example dataset for using \code{\link{GPP}} to estimate the counterfactual GDP of West Germany assuming no reunification.
 }
 \seealso{
-\code{\link{GPP.R}} \code{\link{plotGPPfit.R}} \code{\link{writeMod.R}} \code{\link{runMod.R}} \code{\link{autoconverge.R}}
+\code{\link{GPP}} \code{\link{plotGPPfit}} \code{\link{writeMod}} \code{\link{runMod}} \code{\link{autoconverge.R}}
 }
 \keyword{datasets}

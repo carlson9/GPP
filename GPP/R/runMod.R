@@ -29,7 +29,6 @@ setGeneric(name="runMod",
 #' @export
 setMethod(f="runMod",
           definition=function(modText, dataBloc, unit, iter = 25000, filepath=NULL){
-            require(rstan)
             if (!is.null(filepath)) setwd(filepath)
             fit = rstan::stan(model_code = modText, model_name = unit, data = dataBloc,
                        iter = iter, chains = 1, cores = 1,

@@ -14,11 +14,11 @@ autoConverge(
   outcomeName,
   starttime,
   timeColName,
-  ncores,
-  epsilon,
-  noise,
-  printMod,
-  shift
+  ncores = NULL,
+  epsilon = 0.02,
+  noise = 0.1,
+  printMod = FALSE,
+  shift = 0.05
 )
 }
 \arguments{
@@ -60,7 +60,7 @@ We recommend keeping printMod as FALSE, otherwise, the function will write the m
 We also recommend using all cores on your machine to speed up model run time. If you are unsure about the number of cores in your machine, see doParallel::detectCores().
 }
 \seealso{
-\code{\link{plotGPPfit.R}} \code{\link{runMod.R}} \code{\link{GPP.R}} \code{\link{writeMod.R}}
+\code{\link{plotGPPfit}} \code{\link{runMod}} \code{\link{GPP}} \code{\link{writeMod}}
 }
 \author{
 Devin P. Brown \email{devinpbrown96@gmail.com} and David Carlson \email{carlson.david@wustl.edu}

@@ -2,8 +2,7 @@
 % Please edit documentation in R/GPP.R
 \name{GPP}
 \alias{GPP}
-\alias{GPP,}
-\alias{ANY-method}
+\alias{GPP,ANY-method}
 \title{Estimates a counterfactual with uncertainty using Gaussian process projection}
 \usage{
 GPP(
@@ -15,16 +14,18 @@ GPP(
   outcomeName,
   starttime,
   timeColName,
-  ncores,
-  epsilon,
-  noise,
-  printMod,
-  shift,
-  legendLoc,
-  xlabel,
-  ylabel,
-  actualdatacol,
-  preddatacol,
+  ncores = NULL,
+  epsilon = 0.02,
+  noise = 0.1,
+  printMod = FALSE,
+  shift = 0.05,
+  iter = 25000,
+  filepath = NULL,
+  legendLoc = "topleft",
+  xlabel = NULL,
+  ylabel = NULL,
+  actualdatacol = "black",
+  preddatacol = "red",
   ...
 )
 }
@@ -55,6 +56,10 @@ GPP(
 
 \item{shift}{The magnitude of adjustment for the noise level per iteration. Defaults to 0.05.}
 
+\item{iter}{The number of iterations you would like to run. Defaults to 25,000. See details.}
+
+\item{filepath}{Your preferred place to save the fit data. See Details.}
+
 \item{legendLoc}{The preferred location of the legend in the final graph. Defaults to "topleft".}
 
 \item{xlabel}{The label of the x-axis in the final graph. Defaults to input for 'timeColName'.}
@@ -63,11 +68,9 @@ GPP(
 
 \item{actualdatacol}{The preferred color for plotted line for actual data. Defaults to black.}
 
-\item{iter}{The number of iterations you would like to run. Defaults to 25,000. See details.}
+\item{preddatacol}{The preferred color for plotted line for predicted counterfactual data. Defaults to red.}
 
-\item{filepath}{Your preferred place to save the fit data. See Details.}
-
-\item{predatacol}{The preferred color for plotted line for predicted counterfactual data. Defaults to red.}
+\item{...}{Further parameters passed to the plot function.}
 }
 \value{
 A plot of the actual values and the estimated counterfactual values of the model, and the final model fit.
@@ -88,13 +91,17 @@ We recommend creating a new folder for the file path since the Stan fit creates 
 
 \dontrun{
 data(GDPdata)
-out = GPP(df = GDPdata, controlVars = c('invest', 'school', 'ind'), nUntreated = length(unique(GDPdata$country))-1, obvColName = 'country', obvname = 'West Germany', outcomeName = 'gdp', starttime = 1989, timeColName = 'year')
-
+out = GPP(df = GDPdata, 
+    controlVars = c('invest', 'school', 'ind'),
+    nUntreated = length(unique(GDPdata$country))-1, 
+    obvColName = 'country', obvname = 'West Germany', 
+    outcomeName = 'gdp', starttime = 1989, 
+    timeColName = 'year')
 }
 
 }
 \seealso{
-\code{\link{plotGPPfit.R}} \code{\link{writeMod.R}} \code{\link{runMod.R}} \code{\link{autoconverge.R}}
+\code{\link{plotGPPfit}} \code{\link{writeMod}} \code{\link{runMod}} \code{\link{autoconverge}}
 }
 \author{
 Devin P. Brown \email{devinpbrown96@gmail.com} and David Carlson \email{carlson.david@wustl.edu}

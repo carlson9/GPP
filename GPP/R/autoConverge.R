@@ -3,6 +3,9 @@
 #' Return a converged Stan model fit and the recommended noise level.
 #' 
 #' @details 
+#' We recommend creating a new folder for the file path since the Stan fit creates a large number of files at runtime.
+#' 
+#' For iterations, check that your model converged (we recommend all r-hats close to 1 and examining traceplots).
 #' 
 #' We recommend keeping printMod as FALSE, otherwise, the function will write the model to the console for every model run on the convergence.
 #' 
@@ -16,7 +19,9 @@
 #' @param outcomeName The outcome variable of interest. 
 #' @param starttime The start time of the counterfactual estimation. 
 #' @param timeColName The name of the column that includes the time variable.
+#' @param filepath Your preferred place to save the fit data. See Details.
 #' @param ncores The number of cores to be used to run the model. Default of NULL will utilize all cores.
+#' @param iter Preferred number of iterations. See details. 
 #' @param epsilon The desired level of convergence, i.e. how close to the 0.95 coverage is acceptable.
 #' @param noise The baseline level of noise to be added to the model to prevent overfit. Updates as the model runs. 
 #' @param printMod Boolean. Defaults FALSE. If TRUE, prints the model block for the run to the console. See details.
@@ -30,13 +35,13 @@
 #' @aliases autoConverge,ANY-method
 #' @export
 setGeneric(name="autoConverge",
-           def=function(df, controlVars, nUntreated, obvColName, obvName, outcomeName, starttime, timeColName, ncores = NULL, epsilon = .02, noise = .1, printMod = FALSE, shift = .05)
+           def=function(df, controlVars, nUntreated, obvColName, obvName, outcomeName, starttime, timeColName, filepath = NULL, ncores = NULL, iter = 25000, epsilon = .02, noise = .1, printMod = FALSE, shift = .05)
            {standardGeneric("autoConverge")}
 )
 
 #' @export
 setMethod(f="autoConverge",
-          definition=function(df, controlVars, nUntreated, obvColName, obvName, outcomeName, starttime, timeColName, ncores = NULL, epsilon = .02, noise = .1, printMod = FALSE, shift = .05){
+          definition=function(df, controlVars, nUntreated, obvColName, obvName, outcomeName, starttime, timeColName, filepath = NULL, ncores = NULL, iter = 25000, epsilon = .02, noise = .1, printMod = FALSE, shift = .05){
             unTUnits = unique(df[, obvColName])
             unTUnits = unTUnits[unTUnits != obvName]
             if(is.null(ncores)) ncores = parallel::detectCores()
@@ -79,7 +84,7 @@ setMethod(f="autoConverge",
             })}
               if(ncores %% nUntreated != 0){
                 ncores2 = ncores %% nUntreated
-                parallel::parLapply(cl, 1:ncores2, function(nc) {}
+                parallel::parLapply(cl, 1:ncores2, function(nc) {
                   unTUnit = unTUnits[nUntreated - nc + 1]
                   modText = GPP::writeMod(noise, ncov = length(controlVars), printMod)
                   d2 = df[!(df[, obvColName] == obvName & df[, timeColName] > starttime),]

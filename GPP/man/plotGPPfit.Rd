@@ -13,11 +13,11 @@ plotGPPfit(
   outcomeName,
   starttime,
   timeColName,
-  legendLoc,
-  xlabel,
-  ylabel,
-  actualdatacol,
-  preddatacol,
+  legendLoc = "topleft",
+  xlabel = NULL,
+  ylabel = NULL,
+  actualdatacol = "black",
+  preddatacol = "red",
   ...
 )
 }
@@ -44,7 +44,7 @@ plotGPPfit(
 
 \item{actualdatacol}{The preferred color for plotted line for actual data. Defaults to black.}
 
-\item{predatacol}{The preferred color for plotted line for predicted counterfactual data. Defaults to red.}
+\item{preddatacol}{The preferred color for plotted line for predicted counterfactual data. Defaults to red.}
 }
 \value{
 A plot built in r-base
@@ -60,7 +60,11 @@ load(d)
 df = d
 rm(list=d) 
 
-plotGPPfit(fit=fit, df=df, obvColName='country', obvName='West Germany',outcomeName='gdp', starttime=1990, timeColName='year', legendLoc='bottomright', xlabel="Test X-Label", ylabel = "Test Y-Label", actualdatacol = 'blue', preddatacol = 'green')
+plotGPPfit(fit=fit, df=df, obvColName='country',
+    obvName='West Germany',outcomeName='gdp', starttime=1990, 
+    timeColName='year', legendLoc='bottomright', 
+    xlabel="Test X-Label", ylabel = "Test Y-Label", 
+    actualdatacol = 'blue', preddatacol = 'green')
 }
 
 }

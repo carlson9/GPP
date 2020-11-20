@@ -5,12 +5,14 @@
 \alias{runMod,ANY-method}
 \title{Runs the model, given the data and treated case (may be a placebo).}
 \usage{
-runMod(modText, dataBloc, obvColName, unit, iter, filepath)
+runMod(modText, dataBloc, unit, iter = 25000, filepath = NULL)
 }
 \arguments{
 \item{modText}{This is the string that contains your Stan code. Can be written with \code{\link{writeMod.R}}.}
 
 \item{dataBloc}{This is the data that you pass to the Stan code. It is automatically generated when you run \code{\link{autoconverge.R}}.}
+
+\item{unit}{The unit of observation to project.}
 
 \item{iter}{The number of iterations you would like to run. Defaults to 25,000.}
 
@@ -28,7 +30,7 @@ For iterations, check that your model converged (we recommend all r-hats close t
 We recommend creating a new folder for the file path since the Stan fit creates a large number of files at runtime.
 }
 \seealso{
-\code{\link{plotGPPfit.R}} \code{\link{writeMod.R}} \code{\link{GPP.R}} \code{\link{autoconverge.R}}
+\code{\link{plotGPPfit}} \code{\link{writeMod}} \code{\link{GPP}} \code{\link{autoconverge}}
 }
 \author{
 Devin P. Brown \email{devinpbrown96@gmail.com} and David Carlson \email{carlson.david@wustl.edu}

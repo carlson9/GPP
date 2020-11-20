@@ -14,6 +14,7 @@
 #' @param ylabel The preferred label of the y-axis in the final graph. Defaults to input for 'outcomeName'.
 #' @param actualdatacol The preferred color for plotted line for actual data. Defaults to black. 
 #' @param preddatacol The preferred color for plotted line for predicted counterfactual data. Defaults to red. 
+#' @param ... Further graphical parameters.
 #' 
 #' @return A plot built in r-base
 #' 
@@ -64,8 +65,7 @@ setMethod(f="plotGPPfit",
                   type='l', col=preddatacol, lty=2)
             lines(starttime:max(df[,timeColName]), summary(fit)$summary[paste0('ystar[', timelength, ']'), '97.5%']*sd(as.numeric(na.omit(ys2))) + mean(as.numeric(na.omit(ys2))),
                   type='l', col=preddatacol, lty=2)
-            legend(legendLoc , legend = c(ylabel, paste('Predicted', ylabel)), col = c(actualdatacol, preddatacol), lty = 1, bty = 'n')
-            ?legend
+            legend(legendLoc, legend = c(ylabel, paste('Predicted', ylabel)), col = c(actualdatacol, preddatacol), lty = 1, bty = 'n')
             }
 )
           

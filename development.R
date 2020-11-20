@@ -14,7 +14,11 @@ setwd("~/Dropbox/GPP")
 current.code <- as.package("GPP")
 load_all(current.code)
 document(current.code)
+current.code <- as.package("GPP")
+load_all(current.code)
 check(current.code)
 build(current.code)
+
+
 
 

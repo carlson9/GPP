@@ -19,6 +19,6 @@
 #'   \item{school}{}
 #'   \item{ind}{}
 #'   }
-#' @seealso \code{\link{GPP}} \code{\link{plotGPPfit}} \code{\link{writeMod}} \code{\link{runMod}} \code{\link{autoconverge.R}} 
+#' @seealso \code{\link{GPP}} \code{\link{plotGPPfit}} \code{\link{writeMod}} \code{\link{runMod}} \code{\link{autoconverge}} 
 #' @source \url{https://www.rottentomatoes.com}
 "GDPdata"

@@ -34,9 +34,6 @@
 #' We recommend creating a new folder for the file path since the Stan fit creates a large number of files at runtime.
 #' 
 #' 
-#' 
-#' 
-#' 
 #' @return A plot of the actual values and the estimated counterfactual values of the model, and the final model fit. 
 #' @author Devin P. Brown \email{devinpbrown96@@gmail.com} and David Carlson \email{carlson.david@@wustl.edu} 
 #' @examples

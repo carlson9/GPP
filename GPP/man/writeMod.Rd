@@ -5,12 +5,14 @@
 \alias{writeMod,ANY-method}
 \title{Writes Stan code for GPP model}
 \usage{
-writeMod(noise, ncov, printMod)
+writeMod(noise, ncov, printMod = FALSE)
 }
 \arguments{
 \item{noise}{The desired amount of artificial noise to add to the model.}
 
 \item{ncov}{The number of covariates to include in the model.}
+
+\item{printMod}{Boolean. Defaults FALSE. If TRUE, prints each model block to the console. See details.}
 }
 \value{
 A string of Stan code that can be run with \code{\link{runMod.R}}
@@ -18,13 +20,16 @@ A string of Stan code that can be run with \code{\link{runMod.R}}
 \description{
 Returns string of Stan code that can be run to estimate the GPP.
 }
+\details{
+We recommend keeping printMod as FALSE, otherwise, the function will write the model to the console for every model run on the convergence.
+}
 \examples{
-
+\dontrun{
 writeMod(noise = 0.25, ncov = 2)
-
+}
 }
 \seealso{
-\code{\link{plotGPPfit.R}} \code{\link{runMod.R}} \code{\link{GPP.R}} \code{\link{autoconverge.R}}
+\code{\link{plotGPPfit}} \code{\link{runMod}} \code{\link{GPP}} \code{\link{autoconverge}}
 }
 \author{
 Devin P. Brown \email{devinpbrown96@gmail.com} and David Carlson \email{carlson.david@wustl.edu}
