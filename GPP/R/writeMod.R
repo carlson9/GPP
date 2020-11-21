@@ -36,7 +36,7 @@ setMethod(f="writeMod",
               modstring = paste0(modstring, 'vector[x', i, '_N_obs] x', i, '_in;\n')
             }
             
-            modstring = paste0(modstring,'int<lower=0> y_N_obs; \n
+            modstring = paste0(modstring,'int<lower=0> y_N_obs;
    int<lower=0> y_N_miss;
    int<lower=0> y_miss_ind[y_N_miss];
    int<lower=0> N_countries;
@@ -56,20 +56,20 @@ setMethod(f="writeMod",
    parameters{ \n')
             
             for (i in 1:ncov){
-              modstring = paste0(modstring, 'real x', i, 'b0;')
-              modstring = paste0(modstring, 'vector[N_countries] x', i,'_country_re;')
-              modstring = paste0(modstring, 'vector[N_years] x' ,i,'_year_re;')
-              modstring = paste0(modstring, 'real<lower=0> x',i,'_year_sig;')
-              modstring = paste0(modstring, 'real<lower=0> x',i,'_country_sig;')
-              modstring = paste0(modstring, 'real<lower=0> x',i,'_sigma;')
-              modstring = paste0(modstring, 'matrix[N_years, N_countries] x',i,'_GP_std;')
-              modstring = paste0(modstring, 'real<lower=0> x',i,'_length_GP_long;')
-              modstring = paste0(modstring, 'real<lower=0> x',i,'_sigma_GP_long;')
-              modstring = paste0(modstring, 'vector[x',i,'_N_miss] x',i,'_miss;')
-              modstring = paste0(modstring, 'real b',i,';')
-              modstring = paste0(modstring, 'real<lower=0> x',i,'nug;')
+              modstring = paste0(modstring, 'real x', i, 'b0; \n')
+              modstring = paste0(modstring, 'vector[N_countries] x', i,'_country_re; \n')
+              modstring = paste0(modstring, 'vector[N_years] x' ,i,'_year_re; \n')
+              modstring = paste0(modstring, 'real<lower=0> x',i,'_year_sig; \n')
+              modstring = paste0(modstring, 'real<lower=0> x',i,'_country_sig; \n')
+              modstring = paste0(modstring, 'real<lower=0> x',i,'_sigma; \n')
+              modstring = paste0(modstring, 'matrix[N_years, N_countries] x',i,'_GP_std; \n')
+              modstring = paste0(modstring, 'real<lower=0> x',i,'_length_GP_long; \n')
+              modstring = paste0(modstring, 'real<lower=0> x',i,'_sigma_GP_long; \n')
+              modstring = paste0(modstring, 'vector[x',i,'_N_miss] x',i,'_miss; \n')
+              modstring = paste0(modstring, 'real b',i,'; \n')
+              modstring = paste0(modstring, 'real<lower=0> x',i,'nug; \n')
             }
-            modstring = paste0(modstring, '\n real yb0;
+            modstring = paste0(modstring, 'real yb0;
   vector[y_N_miss] y_miss;
   real<lower=0> sigma_t;
   matrix[N_years, N_countries] y_GP_std;
@@ -85,7 +85,7 @@ setMethod(f="writeMod",
             for (i in 1:ncov){
               modstring = paste0(modstring, 'matrix[N_years,N_countries] x',i,'_GP_term; \n')
             }
-            modstring = paste0(modstring, 'matrix[N_years,N_countries] y_GP_term;\n')
+            modstring = paste0(modstring, 'matrix[N_years,N_countries] y_GP_term; \n')
             for (i in 1:ncov){
               modstring = paste0(modstring, '{
                        matrix[N_years, N_years] x',i,'_cov; \n')
@@ -94,7 +94,7 @@ setMethod(f="writeMod",
                           x',i,'_length_GP_long); \n')
               modstring = paste0(modstring, 'for (year in 1:N_years) x',i,'_cov[year, year] += x',i,'nug; \n') 
               modstring = paste0(modstring, 'x',i,'_L_cov = cholesky_decompose(x',i,'_cov); \n')
-              modstring = paste0(modstring, 'x',i,'_GP_term = x',i,'_L_cov * x',i,'_GP_std; \n }')
+              modstring = paste0(modstring, 'x',i,'_GP_term = x',i,'_L_cov * x',i,'_GP_std; \n } \n')
             }
            
             modstring = paste0(modstring, '{
@@ -104,6 +104,7 @@ setMethod(f="writeMod",
                      for (year in 1:N_years) y_cov[year, year] += ynug;
                      y_L_cov = cholesky_decompose(y_cov);
                      y_GP_term = y_L_cov * y_GP_std;
+            }
 }
  model { \n')
             
@@ -185,7 +186,7 @@ setMethod(f="writeMod",
   y_counter_in += 1;
   }
   } 
-  sig_sq ~ exponential(1);\n')
+  sig_sq ~ exponential(1); \n')
             for (i in 1:ncov){
               modstring = paste0(modstring, 'b',i,' ~ normal(0,3); \n')
             }
@@ -199,7 +200,7 @@ setMethod(f="writeMod",
             modstring = paste0(modstring, 'generated quantities {
   vector[y_N_miss] ystar;
   for(nm in 1:y_N_miss) ystar[nm] = normal_rng(y_miss[nm], ', noise,');
-  }')
+  } \n')
 if (printMod) cat(modstring)
 return(modstring)
 })
