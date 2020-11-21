@@ -191,7 +191,7 @@ setMethod(f="writeMod",
             }
             modstring = paste0(modstring, 'for (n in 1:N) yz[n] ~ normal(yb0 + ')
             for (i in 1:ncov){
-              modstring = paste0(modstring, 'xz',i,'[n]*b',i,'1 +')
+              modstring = paste0(modstring, 'xz',i,'[n]*b',i,' +')
             }
             modstring = paste0(modstring, 'y_year_re[Year[n]] + y_country_re[Country[n]] +
                        y_GP_term[Year[n], Country[n]], sig_sq);
