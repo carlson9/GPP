@@ -59,8 +59,8 @@ setGeneric(name="GPP",
 #' @export
 setMethod(f="GPP",
           definition=function(df, controlVars, nUntreated, obvColName, obvName, outcomeName, starttime, timeColName, ncores = NULL, epsilon = .02, noise = .1, printMod = FALSE, shift = .05, iter = 25000, filepath = NULL, legendLoc = 'topleft', xlabel=NULL, ylabel=NULL, actualdatacol = 'black', preddatacol = 'red',...){
-            noise = GPP::autoConverge(df, controlVars, nUntreated, obvColName, obvName, outcomeName, starttime, timeColName, filepath, ncores, epsilon, noise, printMod, shift)
-            
+            noise = GPP::autoConverge(df, controlVars, nUntreated, obvColName, obvName, outcomeName, starttime, timeColName, filepath, ncores, iter, epsilon, noise, printMod, shift)
+
             modText = GPP::writeMod(noise, length(controlVars), printMod)
             
             d2 = df[!(df[, obvColName] == obvName & df[, timeColName] > starttime),]
