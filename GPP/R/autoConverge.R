@@ -74,7 +74,7 @@ setMethod(f="autoConverge",
                     Year = as.numeric(as.factor(d2[, timeColName])),
                     y_in = as.numeric(scale(as.numeric(na.omit(ys))))
                   ))
-                  fit = GPP::runMod(modText, dataBloc, obvColName, unit = unTUnit, iter, filepath)
+                  fit = GPP::runMod(modText, dataBloc, unit = unTUnit, iter, filepath)
                   totest = d2[d2[, obvColName] == unTUnit & d2[, timeColName] > starttime, outcomeName]
                   modLength = max(unique(d3[, timeColName])) - starttime + 1
                   totest = df[df[, obvColName] == obvName & df[, timeColName] > starttime, outcomeName]
@@ -107,7 +107,7 @@ setMethod(f="autoConverge",
                       Year = as.numeric(as.factor(d2[, timeColName])),
                       y_in = as.numeric(scale(as.numeric(na.omit(ys))))
                     ))
-                    fit = GPP::runMod(modText, dataBloc, obvColName, unit = unTUnit, iter, filepath)
+                    fit = GPP::runMod(modText, dataBloc, unit = unTUnit, iter, filepath)
                     totest = ys[d2[, obvColName] == unTUnit & d2[, timeColName] > starttime]
                     modLength = max(unique(d3[, timeColName])) - starttime + 1
                     totest = df[df[, obvColName] == obvName & df[, timeColName] > starttime, outcomeName]
