@@ -59,10 +59,10 @@ setMethod(f="autoConverge",
                 ys = d2[, outcomeName]
                   xs = list()
                   for(n in 1:length(controlVars)){
-                    xs[[paste0('x', n, '_N_obs')]] = sum(!is.na(paste0(d2[, controlVars[n]])))
-                    xs[[paste0('x', n, '_N_miss')]] = sum(is.na(paste0(d2[, controlVars[n]])))
-                    xs[[paste0('x', n, '_miss_ind')]] = which(is.na(paste0(d2[, controlVars[n]])))
-                    xs[[paste0('x', n, 'in')]] = as.numeric(scale(na.omit(paste0(d2[, controlVars[n]]))))
+                    xs[[paste0('x', n, '_N_obs')]] = sum(!is.na(d2[, controlVars[n]]))
+                    xs[[paste0('x', n, '_N_miss')]] = sum(is.na(d2[, controlVars[n]]))
+                    xs[[paste0('x', n, '_miss_ind')]] = which(is.na(d2[, controlVars[n]]))
+                    xs[[paste0('x', n, 'in')]] = as.numeric(scale(na.omit(d2[, controlVars[n]])))
                   }
                   dataBloc = c(xs, list(
                     y_N_obs = sum(!is.na(ys)),
@@ -92,10 +92,10 @@ setMethod(f="autoConverge",
                   ys = d2[, outcomeName]
                   xs = list()
                   for(n in 1:length(controlVars)){
-                    xs[[paste0('x', n, '_N_obs')]] = sum(!is.na(paste0(d2[, controlVars[n]])))
-                    xs[[paste0('x', n, '_N_miss')]] = sum(is.na(paste0(d2[, controlVars[n]])))
-                    xs[[paste0('x', n, '_miss_ind')]] = which(is.na(paste0(d2[, controlVars[n]])))
-                    xs[[paste0('x', n, 'in')]] = as.numeric(scale(na.omit(paste0(d2[, controlVars[n]]))))
+                    xs[[paste0('x', n, '_N_obs')]] = sum(!is.na(d2[, controlVars[n]]))
+                    xs[[paste0('x', n, '_N_miss')]] = sum(is.na(d2[, controlVars[n]]))
+                    xs[[paste0('x', n, '_miss_ind')]] = which(is.na(d2[, controlVars[n]]))
+                    xs[[paste0('x', n, 'in')]] = as.numeric(scale(na.omit(d2[, controlVars[n]])))
                   }
                     dataBloc = c(xs, list(
                       y_N_obs = sum(!is.na(ys)),
