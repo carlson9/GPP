@@ -148,8 +148,7 @@ setMethod(f="writeMod",
             for (i in 1:ncov){
               modstring = paste0(modstring, 'x',i,'b0 ~ normal(0,3); \n')
             }
-            modstring = paste0(modstring, 'yb0 ~ normal(0,3);
-  B ~ normal(0,3); \n')
+            modstring = paste0(modstring, 'yb0 ~ normal(0,3); \n')
             
             for (i in 1:ncov){
               modstring = paste0(modstring, 'counter',i,'_in = 1; \n')
