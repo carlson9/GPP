@@ -63,15 +63,15 @@ setMethod(f="GPP",
 
             modText = GPP::writeMod(noise, length(controlVars), printMod)
             
-            d2 = df[!(df[, obvColName] == obvName & df[, timeColName] > starttime),]
-            ys = df[, outcomeName]
-            ys[df[, obvColName] == obvName & df[, timeColName] > starttime] = NA
+            d2 = df
+            d2[d2[, obvColName] == obvName & d2[, timeColName] > starttime, c(outcomeName, controlVars)] = NA
+            ys = d2[, outcomeName]
             xs = list()
             for(n in 1:length(controlVars)){
-              assign(paste0('xs[[x', n, '_N_obs]]'), sum(!is.na(get(paste0('d2$', controlVars[n])))))
-              assign(paste0('xs[[x', n, '_N_miss]]'), sum(is.na(get(paste0('d2$', controlVars[n])))))
-              assign(paste0('xs[[x', n, '_miss_ind]]'), which(is.na(get(paste0('d2$', controlVars[n])))))
-              assign(paste0('xs[[x', n, '_in]]'), as.numeric(scale(na.omit(get(paste0('d2$', controlVars[n]))))))
+              xs[[paste0('x', n, '_N_obs')]] = sum(!is.na(d2[, controlVars[n]]))
+              xs[[paste0('x', n, '_N_miss')]] = sum(is.na(d2[, controlVars[n]]))
+              xs[[paste0('x', n, '_miss_ind')]] = which(is.na(d2[, controlVars[n]]))
+              xs[[paste0('x', n, '_in')]] = as.numeric(scale(na.omit(d2[, controlVars[n]])))
             }
             dataBloc = c(xs, list(
               y_N_obs = sum(!is.na(ys)),
@@ -84,7 +84,7 @@ setMethod(f="GPP",
               y_in = as.numeric(scale(as.numeric(na.omit(ys))))
             ))
             
-            fit = GPP::runMod(modText, dataBloc, obvColName, unit = obvName, iter, filepath)
+            fit = GPP::runMod(modText, dataBloc, unit = obvName, iter, filepath)
             pp = GPP::plotGPPfit(fit, df, obvColName, obvName, outcomeName, starttime, timeColName, legendLoc, xlabel, ylabel, actualdatacol, preddatacol, ...)
             return(list(pp, fit))
 })

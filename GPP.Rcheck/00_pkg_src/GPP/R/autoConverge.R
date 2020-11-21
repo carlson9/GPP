@@ -54,8 +54,8 @@ setMethod(f="autoConverge",
               parallel::parLapply(cl, 1:ncores, function(nc) {
                 unTUnit = unTUnits[(ql - 1)*nc + nc]
                 modText = GPP::writeMod(noise, ncov = length(controlVars), printMod)
-                d2 = df[!(df[, obvColName] == obvName & df[, timeColName] > starttime),]
-                d2[d2[, obvColName] == unTUnit & d2[, timeColName] > starttime, c(outcomeName, controlVars)] = NA
+                d2 = df[!(df[, obvColName] == obvName & df[, timeColName] >= starttime),]
+                d2[d2[, obvColName] == unTUnit & d2[, timeColName] >= starttime, c(outcomeName, controlVars)] = NA
                 ys = d2[, outcomeName]
                   xs = list()
                   for(n in 1:length(controlVars)){
@@ -75,10 +75,9 @@ setMethod(f="autoConverge",
                     y_in = as.numeric(scale(as.numeric(na.omit(ys))))
                   ))
                   fit = GPP::runMod(modText, dataBloc, unit = unTUnit, iter, filepath)
-                  totest = d2[d2[, obvColName] == unTUnit & d2[, timeColName] > starttime, outcomeName]
+                  totest = df[df[, obvColName] == unTUnit & df[, timeColName] >= starttime, outcomeName]
                   modLength = max(unique(d2[, timeColName])) - starttime + 1
-                  totest = df[df[, obvColName] == obvName & df[, timeColName] > starttime, outcomeName]
-                  within[(ql - 1)*cl + cl] = totest > rstan::summary(fit)$summary[paste0('ystar[', 1:modLength, ']'), '2.5%']*sd(as.numeric(na.omit(ys))) + mean(as.numeric(na.omit(ys))) &
+                  within[[(ql - 1)*cl + cl]] = totest > rstan::summary(fit)$summary[paste0('ystar[', 1:modLength, ']'), '2.5%']*sd(as.numeric(na.omit(ys))) + mean(as.numeric(na.omit(ys))) &
                                totest < rstan::summary(fit)$summary[paste0('ystar[', 1:modLength, ']'), '97.5%']*sd(as.numeric(na.omit(ys))) + mean(as.numeric(na.omit(ys)))
                 
             })}
@@ -87,8 +86,8 @@ setMethod(f="autoConverge",
                 parallel::parLapply(cl, 1:ncores2, function(nc) {
                   unTUnit = unTUnits[nUntreated - nc + 1]
                   modText = GPP::writeMod(noise, ncov = length(controlVars), printMod)
-                  d2 = df[!(df[, obvColName] == obvName & df[, timeColName] > starttime),]
-                  d2[d2[, obvColName] == unTUnit & d2[, timeColName] > starttime, c(outcomeName, controlVars)] = NA
+                  d2 = df[!(df[, obvColName] == obvName & df[, timeColName] >= starttime),]
+                  d2[d2[, obvColName] == unTUnit & d2[, timeColName] >= starttime, c(outcomeName, controlVars)] = NA
                   ys = d2[, outcomeName]
                   xs = list()
                   for(n in 1:length(controlVars)){
@@ -108,10 +107,9 @@ setMethod(f="autoConverge",
                       y_in = as.numeric(scale(as.numeric(na.omit(ys))))
                     ))
                     fit = GPP::runMod(modText, dataBloc, unit = unTUnit, iter, filepath)
-                    totest = ys[d2[, obvColName] == unTUnit & d2[, timeColName] > starttime]
+                    totest = df[df[, obvColName] == unTUnit & df[, timeColName] >= starttime]
                     modLength = max(unique(d2[, timeColName])) - starttime + 1
-                    totest = df[df[, obvColName] == obvName & df[, timeColName] > starttime, outcomeName]
-                    within[(ql - 1)*cl + cl] = totest > rstan::summary(fit)$summary[paste0('ystar[', 1:modLength, ']'), '2.5%']*sd(as.numeric(na.omit(ys))) + mean(as.numeric(na.omit(ys))) &
+                    within[[(ql - 1)*cl + cl]] = totest > rstan::summary(fit)$summary[paste0('ystar[', 1:modLength, ']'), '2.5%']*sd(as.numeric(na.omit(ys))) + mean(as.numeric(na.omit(ys))) &
                       totest < rstan::summary(fit)$summary[paste0('ystar[', 1:modLength, ']'), '97.5%']*sd(as.numeric(na.omit(ys))) + mean(as.numeric(na.omit(ys)))
                   
                 })

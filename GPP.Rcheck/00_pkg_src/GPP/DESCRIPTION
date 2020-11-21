@@ -12,7 +12,7 @@ Encoding: UTF-8
 License: GPL (>= 2)
 RoxygenNote: 7.1.1
 NeedsCompilation: no
-Packaged: 2020-11-21 14:57:55 UTC; david
+Packaged: 2020-11-21 16:16:19 UTC; david
 Author: Devin P. Brown [aut],
   David Carlson [aut, cre]
 Maintainer: David Carlson <carlson.david@wustl.edu>
