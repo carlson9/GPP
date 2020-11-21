@@ -166,8 +166,7 @@ setMethod(f="writeMod",
               modstring = paste0(modstring, 'xz',i,'[n] = x',i,'_in[counter',i,'_in]; \n')
               modstring = paste0(modstring, 'counter',i,'_in += 1; \n')
               modstring = paste0(modstring, '} \n')
-              modstring = paste0(modstring, 'xz',i,'[n] ~ normal(x',i,'b0 + x1_year_re[Year[n]] + x',i,'_country_re[Country[n]] + x',i,'_GP_term[Year[n], Country[n]], x',i,'_sigma); \n')
-              modstring = paste0(modstring, '} \n')
+              modstring = paste0(modstring, 'xz',i,'[n] ~ normal(x',i,'b0 + x', i, '_year_re[Year[n]] + x',i,'_country_re[Country[n]] + x',i,'_GP_term[Year[n], Country[n]], x',i,'_sigma); \n')
               modstring = paste0(modstring, '} \n') 
             }
             modstring = paste0(modstring, 'y_counter_in = 1;
