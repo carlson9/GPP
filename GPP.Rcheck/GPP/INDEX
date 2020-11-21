@@ -1,0 +1,10 @@
+GDPdata                 1960-2003 GDP dataset
+GPP                     Estimates a counterfactual with uncertainty
+                        using Gaussian process projection
+autoConverge            Checks Stan model for convergence, then runs
+                        model on actual data.
+plotGPPfit              Plots results of a (converged) model, with true
+                        and projected values.
+runMod                  Runs the model, given the data and treated case
+                        (may be a placebo).
+writeMod                Writes Stan code for GPP model

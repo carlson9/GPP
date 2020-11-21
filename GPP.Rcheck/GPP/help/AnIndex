@@ -1,0 +1,11 @@
+autoConverge	autoConverge
+autoConverge,ANY-method	autoConverge
+GDPdata	GDPdata
+GPP	GPP
+GPP,ANY-method	GPP
+plotGPPfit	plotGPPfit
+plotGPPfit,ANY-method	plotGPPfit
+runMod	runMod
+runMod,ANY-method	runMod
+writeMod	writeMod
+writeMod,ANY-method	writeMod
