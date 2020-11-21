@@ -117,6 +117,9 @@ setMethod(f="autoConverge",
                 })
               }
             nn = mean(unlist(within)) - .95
-            if (epsilon < abs(nn)) return(GPP::autoConverge(df, controlVars, nUntreated, obvColName, obvName, outcomeName, starttime, timeColName, ncores, epsilon, noise = ifelse(nn > 0, noise - shift, noise + shift), printMod, shift))
+            if (epsilon < abs(nn)){
+              noise = ifelse(nn > 0, noise - shift, noise + shift)
+              return(GPP::autoConverge(df, controlVars, nUntreated, obvColName, obvName, outcomeName, starttime, timeColName, ncores, epsilon, noise, printMod, shift))
+            }
             return(noise)
 })
