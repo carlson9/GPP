@@ -71,7 +71,7 @@ setMethod(f="GPP",
               assign(paste0('xs[[x', n, '_N_obs]]'), sum(!is.na(get(paste0('d2$', controlVars[n])))))
               assign(paste0('xs[[x', n, '_N_miss]]'), sum(is.na(get(paste0('d2$', controlVars[n])))))
               assign(paste0('xs[[x', n, '_miss_ind]]'), which(is.na(get(paste0('d2$', controlVars[n])))))
-              assign(paste0('xs[[x', n, 'in]]'), as.numeric(scale(na.omit(get(paste0('d2$', controlVars[n]))))))
+              assign(paste0('xs[[x', n, '_in]]'), as.numeric(scale(na.omit(get(paste0('d2$', controlVars[n]))))))
             }
             dataBloc = c(xs, list(
               y_N_obs = sum(!is.na(ys)),
