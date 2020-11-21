@@ -64,7 +64,7 @@ setMethod(f="GPP",
             modText = GPP::writeMod(noise, length(controlVars), printMod)
             
             d2 = df
-            d2[d2[, obvColName] == unTUnit & d2[, timeColName] > starttime, c(outcomeName, controlVars)] = NA
+            d2[d2[, obvColName] == obvName & d2[, timeColName] > starttime, c(outcomeName, controlVars)] = NA
             ys = d2[, outcomeName]
             xs = list()
             for(n in 1:length(controlVars)){
