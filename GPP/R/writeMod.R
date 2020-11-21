@@ -32,7 +32,7 @@ setMethod(f="writeMod",
             for (i in 1:ncov){
               modstring = paste0(modstring, 'int<lower=0> x', i,'_N_obs; \n')
               modstring = paste0(modstring, 'int<lower=0> x', i,'_N_miss; \n')
-              modstring = paste0(modstring, 'int<lower=0> x', i,'_N_miss_ind[x', i, '_N_miss]; \n')
+              modstring = paste0(modstring, 'int<lower=0> x', i,'_miss_ind[x', i, '_N_miss]; \n')
               modstring = paste0(modstring, 'vector[x', i, '_N_obs] x', i, '_in;\n')
             }
             
