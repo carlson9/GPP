@@ -90,7 +90,7 @@ setMethod(f="writeMod",
               modstring = paste0(modstring, '{
                        matrix[N_years, N_years] x',i,'_cov; \n')
               modstring = paste0(modstring, 'matrix[N_years, N_years] x',i,'_L_cov; \n')
-              modstring = paste0(modstring, 'x', i,'_cov = cov_exp_quad(years, x',i,'1_sigma_GP_long,
+              modstring = paste0(modstring, 'x', i,'_cov = cov_exp_quad(years, x',i,'_sigma_GP_long,
                           x',i,'_length_GP_long); \n')
               modstring = paste0(modstring, 'for (year in 1:N_years) x',i,'_cov[year, year] += x',i,'nug; \n') 
               modstring = paste0(modstring, 'x',i,'_L_cov = cholesky_decompose(x',i,'_cov); \n')
