@@ -155,6 +155,7 @@ setMethod(f="writeMod",
               modstring = paste0(modstring, 'counter',i,'_out = 1; \n')
               modstring = paste0(modstring, 'for(n in 1:N){ \n')
               modstring = paste0(modstring, 'if(counter',i,'_out <= x',i,'_N_miss){ \n')
+              modstring = paste0(modstring, 'if(n == x', i, '_miss_ind[counter', i, '_out]){ \n')
               modstring = paste0(modstring, 'xz',i,'[n] = x',i,'_miss[counter',i,'_out]; \n')
               modstring = paste0(modstring, 'counter',i,'_out += 1; \n')
               modstring = paste0(modstring, '}else{ \n')
