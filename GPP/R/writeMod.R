@@ -109,7 +109,7 @@ setMethod(f="writeMod",
  model { \n')
             
             for (i in 1:ncov){
-              modstring = paste0(modstring,'vector[N] xz',i,'1; \n')
+              modstring = paste0(modstring,'vector[N] xz',i,'; \n')
             }
             
             for (i in 1:ncov){
