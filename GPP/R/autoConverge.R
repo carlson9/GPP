@@ -79,7 +79,7 @@ setMethod(f="autoConverge",
                   modLength = max(unique(d2[, timeColName])) - starttime + 1
                   within[[(ql - 1)*nc + nc]] = totest > rstan::summary(fit)$summary[paste0('ystar[', 1:modLength, ']'), '2.5%']*sd(as.numeric(na.omit(ys))) + mean(as.numeric(na.omit(ys))) &
                                totest < rstan::summary(fit)$summary[paste0('ystar[', 1:modLength, ']'), '97.5%']*sd(as.numeric(na.omit(ys))) + mean(as.numeric(na.omit(ys)))
-                
+                  
             })}
               if(nUntreated %% ncores != 0 & nUntreated > ncores){
                 ncores2 = nUntreated %% ncores
@@ -109,7 +109,7 @@ setMethod(f="autoConverge",
                     fit = GPP::runMod(modText, dataBloc, unit = unTUnit, iter, filepath)
                     totest = df[df[, obvColName] == unTUnit & df[, timeColName] >= starttime]
                     modLength = max(unique(d2[, timeColName])) - starttime + 1
-                    within[[(ql - 1)*nc + nc]] = totest > rstan::summary(fit)$summary[paste0('ystar[', 1:modLength, ']'), '2.5%']*sd(as.numeric(na.omit(ys))) + mean(as.numeric(na.omit(ys))) &
+                    within[[nUntreated - nc + 1]] = totest > rstan::summary(fit)$summary[paste0('ystar[', 1:modLength, ']'), '2.5%']*sd(as.numeric(na.omit(ys))) + mean(as.numeric(na.omit(ys))) &
                       totest < rstan::summary(fit)$summary[paste0('ystar[', 1:modLength, ']'), '97.5%']*sd(as.numeric(na.omit(ys))) + mean(as.numeric(na.omit(ys)))
                   
                 })
