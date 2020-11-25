@@ -1,5 +1,5 @@
 Package: GPP
-Title: Estimating a Counterfactual with Uncertainty Using Gaussian Process Projection 
+Title: Gaussian Process Projection 
 Version: 0.1
 Authors@R: c( 
     person("Devin P.", "Brown", email = "devinpbrown96@gmail.com", role = "aut"),

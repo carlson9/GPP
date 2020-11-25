@@ -21,7 +21,7 @@
 #' @author Devin P. Brown \email{devinpbrown96@@gmail.com} and David Carlson \email{carlson.david@@wustl.edu} 
 #' @examples
 #' 
-#' \dontrun{
+#' \donttest{
 #' load(FDIout)
 #' load(d)
 #' df = d

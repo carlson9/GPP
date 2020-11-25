@@ -56,7 +56,7 @@ Takes the results of a Gaussian Process Projection fit and generates a linear pl
 }
 \examples{
 
-\dontrun{
+\donttest{
 load(FDIout)
 load(d)
 df = d

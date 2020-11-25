@@ -89,7 +89,7 @@ We recommend creating a new folder for the file path since the Stan fit creates 
 }
 \examples{
 
-\dontrun{
+\donttest{
 data(GDPdata)
 out = GPP(df = GDPdata, 
     controlVars = c('invest', 'school', 'ind'),

@@ -24,7 +24,7 @@ Returns string of Stan code that can be run to estimate the GPP.
 We recommend keeping printMod as FALSE, otherwise, the function will write the model to the console for every model run on the convergence.
 }
 \examples{
-\dontrun{
+\donttest{
 writeMod(noise = 0.25, ncov = 2)
 }
 }

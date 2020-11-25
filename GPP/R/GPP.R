@@ -38,14 +38,15 @@
 #' @author Devin P. Brown \email{devinpbrown96@@gmail.com} and David Carlson \email{carlson.david@@wustl.edu} 
 #' @examples
 #'
-#' \dontrun{
+#' \donttest{
 #' data(GDPdata)
 #' out = GPP(df = GDPdata, 
 #'     controlVars = c('invest', 'school', 'ind'),
 #'     nUntreated = length(unique(GDPdata$country))-1, 
 #'     obvColName = 'country', obvName = 'West Germany', 
 #'     outcomeName = 'gdp', starttime = 1989, 
-#'     timeColName = 'year')
+#'     timeColName = 'year',
+#'     ncores = 2)
 #' }
 #' 
 #' @seealso \code{\link{plotGPPfit}} \code{\link{writeMod}} \code{\link{runMod}} \code{\link{autoConverge}}

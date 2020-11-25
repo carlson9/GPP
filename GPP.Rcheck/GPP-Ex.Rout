@@ -60,15 +60,6 @@ Loading required package: parallel
 > ### ** Examples
 > 
 > 
-> ## Not run: 
-> ##D data(GDPdata)
-> ##D out = GPP(df = GDPdata, 
-> ##D     controlVars = c('invest', 'school', 'ind'),
-> ##D     nUntreated = length(unique(GDPdata$country))-1, 
-> ##D     obvColName = 'country', obvName = 'West Germany', 
-> ##D     outcomeName = 'gdp', starttime = 1989, 
-> ##D     timeColName = 'year')
-> ## End(Not run)
 > 
 > 
 > 
@@ -90,18 +81,6 @@ Loading required package: parallel
 > ### ** Examples
 > 
 > 
-> ## Not run: 
-> ##D load(FDIout)
-> ##D load(d)
-> ##D df = d
-> ##D rm(list=d) 
-> ##D 
-> ##D plotGPPfit(fit=fit, df=df, obvColName='country',
-> ##D     obvName='West Germany',outcomeName='gdp', starttime=1990, 
-> ##D     timeColName='year', legendLoc='bottomright', 
-> ##D     xlabel="Test X-Label", ylabel = "Test Y-Label", 
-> ##D     actualdatacol = 'blue', preddatacol = 'green')
-> ## End(Not run)
 > 
 > 
 > 
@@ -121,9 +100,6 @@ Loading required package: parallel
 > 
 > ### ** Examples
 > 
-> ## Not run: 
-> ##D writeMod(noise = 0.25, ncov = 2)
-> ## End(Not run)
 > 
 > 
 > 
@@ -134,7 +110,7 @@ Loading required package: parallel
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  0.912 0.028 0.944 0.002 0 
+Time elapsed:  1.018 0.045 1.07 0.002 0.001 
 > grDevices::dev.off()
 null device 
           1 

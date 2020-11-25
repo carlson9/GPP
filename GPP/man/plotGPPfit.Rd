@@ -54,22 +54,6 @@ A plot built in r-base
 \description{
 Takes the results of a Gaussian Process Projection fit and generates a linear plot of the actual and predicted counterfactual values
 }
-\examples{
-
-\dontrun{
-load(FDIout)
-load(d)
-df = d
-rm(list=d) 
-
-plotGPPfit(fit=fit, df=df, obvColName='country',
-    obvName='West Germany',outcomeName='gdp', starttime=1990, 
-    timeColName='year', legendLoc='bottomright', 
-    xlabel="Test X-Label", ylabel = "Test Y-Label", 
-    actualdatacol = 'blue', preddatacol = 'green')
-}
-
-}
 \seealso{
 \code{\link{autoConverge}} \code{\link{GPP}} \code{\link{runMod}} \code{\link{writeMod}}
 }

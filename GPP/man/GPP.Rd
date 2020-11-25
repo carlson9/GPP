@@ -89,14 +89,15 @@ We recommend creating a new folder for the file path since the Stan fit creates 
 }
 \examples{
 
-\dontrun{
+\donttest{
 data(GDPdata)
 out = GPP(df = GDPdata, 
     controlVars = c('invest', 'school', 'ind'),
     nUntreated = length(unique(GDPdata$country))-1, 
     obvColName = 'country', obvName = 'West Germany', 
     outcomeName = 'gdp', starttime = 1989, 
-    timeColName = 'year')
+    timeColName = 'year',
+    ncores = 2)
 }
 
 }

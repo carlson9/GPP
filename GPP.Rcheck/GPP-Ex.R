@@ -32,15 +32,6 @@ base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 ### ** Examples
 
 
-## Not run: 
-##D data(GDPdata)
-##D out = GPP(df = GDPdata, 
-##D     controlVars = c('invest', 'school', 'ind'),
-##D     nUntreated = length(unique(GDPdata$country))-1, 
-##D     obvColName = 'country', obvName = 'West Germany', 
-##D     outcomeName = 'gdp', starttime = 1989, 
-##D     timeColName = 'year')
-## End(Not run)
 
 
 
@@ -62,18 +53,6 @@ base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 ### ** Examples
 
 
-## Not run: 
-##D load(FDIout)
-##D load(d)
-##D df = d
-##D rm(list=d) 
-##D 
-##D plotGPPfit(fit=fit, df=df, obvColName='country',
-##D     obvName='West Germany',outcomeName='gdp', starttime=1990, 
-##D     timeColName='year', legendLoc='bottomright', 
-##D     xlabel="Test X-Label", ylabel = "Test Y-Label", 
-##D     actualdatacol = 'blue', preddatacol = 'green')
-## End(Not run)
 
 
 
@@ -93,9 +72,6 @@ base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 
 ### ** Examples
 
-## Not run: 
-##D writeMod(noise = 0.25, ncov = 2)
-## End(Not run)
 
 
 

@@ -12,7 +12,7 @@
 #' @return A string of Stan code that can be run with \code{\link{runMod}} 
 #' @author Devin P. Brown \email{devinpbrown96@@gmail.com} and David Carlson \email{carlson.david@@wustl.edu} 
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' writeMod(noise = 0.25, ncov = 2)
 #' }
 #' @seealso \code{\link{plotGPPfit}} \code{\link{runMod}} \code{\link{GPP}} \code{\link{autoConverge}}

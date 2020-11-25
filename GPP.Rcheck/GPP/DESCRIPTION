@@ -12,8 +12,8 @@ Encoding: UTF-8
 License: GPL (>= 2)
 RoxygenNote: 7.1.1
 NeedsCompilation: no
-Packaged: 2020-11-23 13:44:58 UTC; david
+Packaged: 2020-11-25 14:49:02 UTC; david
 Author: Devin P. Brown [aut],
   David Carlson [aut, cre]
 Maintainer: David Carlson <carlson.david@wustl.edu>
-Built: R 3.6.3; ; 2020-11-23 13:45:17 UTC; unix
+Built: R 3.6.3; ; 2020-11-25 14:49:24 UTC; unix

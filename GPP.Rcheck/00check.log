@@ -54,6 +54,7 @@ New submission
 * checking data for non-ASCII characters ... OK
 * checking data for ASCII and uncompressed saves ... OK
 * checking examples ... OK
+** found \donttest examples: check also with --run-donttest
 * checking PDF version of manual ... OK
 * checking for detritus in the temp directory ... OK
 * DONE
